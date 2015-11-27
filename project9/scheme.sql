@@ -63,13 +63,13 @@ INSERT INTO categories VALUES
     (2, 'Formes normales', NULL),
     (3, '1FN', 2),
     (4, '2FN', 2),
-    (5, '3FN', 2),
+    (5, '3FN', 2);
 
 INSERT INTO cours VALUES
-    (1, 'Bases de données', "IFT2935"),
-    (2, 'Génie Logiciel', "IFT2935"),
-    (3, 'Génie Logiciel 2 : la vengence des classes abstraites', "IFT2935");
-    (4, 'Génie Logiciel 3 : le retour des interfaces d''AbstractFactoryFactory', "IFT2935");
+    (1, 'Bases de données', 'IFT2935'),
+    (2, 'Génie Logiciel', 'IFT2935'),
+    (3, 'Génie Logiciel 2 : la vengence des classes abstraites', 'IFT2935'),
+    (4, 'Génie Logiciel 3 : le retour des interfaces d''AbstractFactoryFactory', 'IFT2935');
 
 INSERT INTO partie_cours VALUES
     (1, 'Première partie : Introduction', 1),
@@ -88,6 +88,3 @@ INSERT INTO questions VALUES
     (4, 'Qu''est-ce qu''un attribut composite ?', 2),
     (5, 'Quels sont les types de contraintes d''intégrité relationnelle ?', 3),
     (6, 'Quel est le symbol pour l''opération de SÉLECTION ?', 3);
-
-INSERT INTO question_categories VALUES
-    (1, ),

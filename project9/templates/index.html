@@ -7,10 +7,18 @@
     <div class="ui two columns grid" style="position: relative">
         <div class="ui column">
             <h3 class="ui dividing header">Questions aléatoires par cours</h3>
+            {% include "hierarchie-cours.html" %}
         </div>
         <div class="ui column">
-            <h3 class="ui dividing header">Questions aléatoires par thème</h3>
-            {% include "hierarchie-cours.html" %}
+            <h3 class="ui dividing header">Rechercher par catégorie</h3>
+            <form action="/search/" method="POST">
+                <div class="ui input">
+                    <input placeholder="ex.: Forme normale" type="text" name="pattern" />
+                </div>
+                <button class="ui button">
+                    Rechercher
+                </button>
+            </form>
         </div>
     </div>
 {% endblock %}
