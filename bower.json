@@ -1,0 +1,7 @@
+{
+  "name": "bid-my-po",
+  "dependencies": {
+    "jquery": "*",
+    "semantic-ui": "~2.0"
+  }
+}

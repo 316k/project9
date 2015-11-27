@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <h2 class="ui dividing header">Question aléatoire</h2>
+    <div class="ui two columns grid">
+        <div class="ui column">
+            <h3 class="ui dividing header">Rechercher des questions par cours</h3>
+            {% include "hierarchie-cours.html" %}
+        </div>
+    </div>
+{% endblock %}

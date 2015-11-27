@@ -1,0 +1,9 @@
+Sujet : Gestion d’un système de questions (CF)
+
+Description de la base
+
+Il s’agit d’organiser les questions relatives à un cours selon un format qui permet de retrouver différents aspects de la question ou du cours. Ainsi, on distinguera les aspects de concepts liés à la question et les exercices s’y rapportant ainsi que les réponses. On devra permettre de rentrer les questions selon les concepts et sujets ou encore selon les parties du cours. On organiser le tout dans une base de données qui devra être accessible par des personnes à partir du Web (donc les requêtes doivent générer du code SQL à partir du Web).
+
+On devra permettre de retrouver les questions (et les réponses) liées à un concept (par exemple : 2ème forme normale), ou encore un sujet (normalisation).
+
+On pourra inclure dans chaque entité tous les éléments réalistes possibles à condition de les justifier.

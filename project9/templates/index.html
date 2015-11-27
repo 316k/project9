@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <h2 class="ui dividing header">Questions à choix multiples</h2>
+    <div class="ui two columns grid" style="position: relative">
+        <div class="ui column">
+            <h3 class="ui dividing header">Questions aléatoires par cours</h3>
+        </div>
+        <div class="ui column">
+            <h3 class="ui dividing header">Questions aléatoires par thème</h3>
+            {% include "hierarchie-cours.html" %}
+        </div>
+    </div>
+{% endblock %}
