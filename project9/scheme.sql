@@ -88,3 +88,6 @@ INSERT INTO questions VALUES
     (4, 'Qu''est-ce qu''un attribut composite ?', 2),
     (5, 'Quels sont les types de contraintes d''intégrité relationnelle ?', 3),
     (6, 'Quel est le symbol pour l''opération de SÉLECTION ?', 3);
+
+INSERT INTO question_categories VALUES
+    (1, ),
