@@ -12,4 +12,4 @@ def question(category):
     
     q = random.choice(questions)
     
-    return render_template('question.html', question=q)W
+    return render_template('question.html', question=q)
