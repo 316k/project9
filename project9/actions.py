@@ -1,6 +1,5 @@
-from project9 import app, auth
+from project9 import app
 from flask import request, redirect, url_for, render_template, g
-from flaskext.auth import Auth, AuthUser, Permission, Role, permission_required, logout
 import random
 
 @app.route("/")

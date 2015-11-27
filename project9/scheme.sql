@@ -118,6 +118,7 @@ INSERT INTO questions VALUES
     (27, 'Nommez le livre dans lequel le singleton a été décrit', 13),
     (28, 'Nommez la troisième partie du MVC', 14),
     (29, 'À quoi sert la vue', 14);
+
 INSERT INTO reponses VALUES
     (1, 'Une sorte de champginon', 1, 0),
     (2, 'Une structure servant à organiser des données', 1, 1),
@@ -153,5 +154,4 @@ INSERT INTO reponses VALUES
     (32, 'UML', 16, 1),
     (33, 'Tous', 16, 0),
     (34, 'Il est démontrablement rigoureux', 17, 1),
-    (35, 'Les machines sont strictement supérieures aux humains', 17, 0),
-    (
+    (35, 'Les machines sont strictement supérieures aux humains', 17, 0);

@@ -1,12 +1,9 @@
 import sqlite3
 from flask import Flask, g
-from flaskext.auth import Auth
 
 app = Flask(__name__)
 app.debug = True
-app.secret_key = 'exhaussement'
-
-auth = Auth(app)
+app.secret_key = 'rkunhffrzrag'
 
 from project9 import actions
 
