@@ -106,18 +106,18 @@ INSERT INTO questions VALUES
     (29, 'À quoi sert la vue ?', 14);
 
 INSERT INTO reponses VALUES
-    (NULL, 'Une sorte de champignon', 1, 0),
+    (NULL, 'Une sorte de champginon', 1, 0),
     (NULL, 'Une structure servant à organiser des données', 1, 1),
     (NULL, 'Pour organiser efficacement des données', 2, 1),
     (NULL, 'Pour faire de délicieux biscuits', 2, 0),
     (NULL, 'Un attribut pouvant ouvrir une porte', 3, 0),
-    (NULL, 'Un attribut identifiant un tuple de façon unique', 3, 1),
+    (NULL, 'Un attribut identifiant un tuple', 3, 1),
     (NULL, 'Un attribut comportant plusieurs sous-données', 4, 1),
     (NULL, 'Un attribut en matériaux renforcés', 4, 0),
     (NULL, 'Unique', 5, 1),
     (NULL, 'Additif', 5, 0),
     (NULL, ':D', 6, 0),
-    (NULL, 'Sigma', 6, 1),
+    (NULL, '\sigma', 6, 1),
     (NULL, 'Elle sert a joindre deux tables sur une condition', 7, 1),
     (NULL, 'On peut s''en servir pour générer du code', 7, 0),
     (NULL, 'Vrai', 8, 0),
@@ -130,7 +130,7 @@ INSERT INTO reponses VALUES
     (NULL, 'Il est mangeable', 11, 0),
     (NULL, '1', 12, 0),
     (NULL, '7', 12, 0),
-    (NULL, 'Toujours plus', 12, 1),
+    (NULL, 'plus', 12, 1),
     (NULL, 'Plus de patterns', 13, 1),
     (NULL, 'Seulement les patterns nécessaires', 13, 0),
     (NULL, 'Abstract Visitor', 14, 1),
@@ -140,7 +140,15 @@ INSERT INTO reponses VALUES
     (NULL, 'UML', 16, 1),
     (NULL, 'Tous', 16, 0),
     (NULL, 'Il est démontrablement rigoureux', 17, 1),
-    (NULL, 'Les machines sont strictement supérieures aux humains', 17, 0);
+    (NULL, 'Les machines sont strictement supérieures aux humains', 17, 0),
+    (NULL, 'La réutilisabilité', 18, 1),
+    (NULL, 'La performance', 18, 0),
+    (NULL, 'Inverser les dépendences, tu dois', 19, 1),
+    (NULL, 'Avec modération, les interfaces tu utiliseras', 19, 0),
+    (NULL, 'Le couplage élevé', 20, 1),
+    (NULL, 'Une cohésion élevée', 20, 0),
+    (NULL, 'L''abstraction permet de rendre certaines structures plus génériques', 21, 1),
+    (NULL, 'L''abstraction permet de rendre le code moins volumineux', 21, 0);
 
 -- WITH RECURSIVE parent(category_id, nom, level) AS (SELECT category_id, name, 0 FROM categories WHERE id=? UNION ALL SELECT categories.category_id, categories.name, parent.level + 1 FROM categories JOIN parent ON parent.category_id=categories.id) SELECT * FROM parent
 

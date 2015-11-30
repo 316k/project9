@@ -9,20 +9,34 @@
     <title>{% block title %}{% endblock %} - project9</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='bower_components/semantic-ui/dist/semantic.min.css') }}">
+    <link rel="stylesheet" href="/static/default.css">
     {% endblock %}
 </head>
 <body>
-  <div class="ui container">
-    <header class="ui huge header">
-        <h1><marquee>project9</marquee></h1>
+    <header>
+        <div class="ui menu" id="top-menu">
+            <div class="huge header item">
+                <h1>project9</h1>
+            </div>
+            <a class="header item" href="/">
+                Home
+            </a>
+            <div class="item">
+                score : 13%
+            </div>
+            <a class="item">
+                reset
+            </a>
+        </div>
     </header>
-    {% block content %}{% endblock %}
-    <footer class="ui align center">
-        {% block footer %}
-            (c) 2015 - project9
-        {% endblock %}
-    </footer>
-  </div>
+    <div class="ui container" id="content">
+        {% block content %}{% endblock %}
+        <footer class="ui align center">
+            {% block footer %}
+                (c) 2015 - project9
+            {% endblock %}
+        </footer>
+    </div>
 </body>
 {% block script %}
     <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
