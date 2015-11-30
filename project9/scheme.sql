@@ -1,3 +1,5 @@
+PRAGMA foreign_keys = ON;
+
 -- Cours
 CREATE TABLE cours(
     id INTEGER NOT NULL PRIMARY KEY,
@@ -39,20 +41,6 @@ CREATE TABLE categories(
     FOREIGN KEY(category_id) REFERENCES categories(category_id)
 );
 
--- Associations entre les catégories (pas de sous-catégories) et les cours
-CREATE TABLE categorie_cours(
-    category_id INTEGER NOT NULL,
-    cours_id INTEGER NOT NULL,
-    PRIMARY KEY(category_id, cours_id)
-);
-
--- Associations question-catégories
-CREATE TABLE question_categories(
-    question_id INTEGER NOT NULL,
-    category_id INTEGER NOT NULL,
-    PRIMARY KEY(question_id, category_id)
-);
-
 -- Notes sur le schéma :
 --  * les exercices reliés sont calculés à partir des catégories associées aux questions
 --  * Il n'est pas nécessaire d'associer des sous-catégories à un cours, puisqu'on peut retrouver le cours en trouvant récursivement le parent (FIXME ?)
@@ -61,7 +49,7 @@ CREATE TABLE question_categories(
 -- Valeurs de test --
 INSERT INTO categories VALUES
     (1, 'Normalisation des bases de données', NULL),
-    (2, 'Formes normales', NULL),
+    (2, 'Formes normales', 1),
     (3, '1FN', 2),
     (4, '2FN', 2),
     (5, '3FN', 2);
@@ -86,7 +74,7 @@ INSERT INTO partie_cours VALUES
     (11, 'Partie 3 : le rôle des factoryFactory dans l''abstraction', 4),
     (12, 'Partie 4 : L''abstraction des factoryFactory par une interface', 4),
     (13, '1 : La guerre des singletons', 3),
-    (14, '4 : 300 MVC', 3);
+    (14, '2 : 300 MVC', 3);
 
 INSERT INTO questions VALUES
     (1, 'Qu''est-ce qu''une base de données ?', 1),
@@ -102,56 +90,61 @@ INSERT INTO questions VALUES
     (11, 'Laquelle de ces caractéristiques appartient au code ?', 5),
     (12, 'Combien de Factory sont nécessaires par 1000 lignes de code ?', 6),
     (13, 'Quelle est la première règle de l''overengineering ?', 6),
-    (14, 'Quel patron de conception permet le mieux de généraliser du code', 7),
-    (15, 'Quel patron de conception permet d''OOifier un systême', 7),
-    (16, 'Quel langage permet de générer du code', 8),
-    (17, 'Pourquoi le code généré est-il meilleur', 8),
-    (18, 'Laquelle parmis ces vertues est une vertue de l''abstraction', 9),
-    (19, 'Nommez un commandement de l''abstraction', 9),
-    (20, 'Nommez un des péchés capitaux de l''abstraction', 10),
-    (21, 'Quel est l''avantage principal de l''abstraction', 10),
-    (22, 'À quel moment devriez-vous utiliser un factoryFactory', 11),
-    (23, 'Quelle est l''utilité des factoryFactory', 11),
-    (24, 'Quel est l''avantage de l''utilisation d''une interface', 12),
-    (25, 'Quand devriez-vous utiliser une interface', 12),
-    (26, 'Combien doit-it y avoir d''instances de singletons', 13),
-    (27, 'Nommez le livre dans lequel le singleton a été décrit', 13),
-    (28, 'Nommez la troisième partie du MVC', 14),
-    (29, 'À quoi sert la vue', 14);
+    (14, 'Quel patron de conception permet le mieux de généraliser du code ?', 7),
+    (15, 'Quel patron de conception permet d''OOifier un système ?', 7),
+    (16, 'Quel langage permet de générer du code ?', 8),
+    (17, 'Pourquoi le code généré est-il meilleur ?', 8),
+    (18, 'Laquelle parmis ces vertues est une vertue de l''abstraction ?', 9),
+    (19, 'Nommez un commandement de l''abstraction ?', 9),
+    (20, 'Nommez un des péchés capitaux de l''abstraction ?', 10),
+    (21, 'Quel est l''avantage principal de l''abstraction ?', 10),
+    (22, 'À quel moment devriez-vous utiliser un factoryFactory ?', 11),
+    (23, 'Quelle est l''utilité des factoryFactory ?', 11),
+    (24, 'Quel est l''avantage de l''utilisation d''une interface ?', 12),
+    (25, 'Quand devriez-vous utiliser une interface ?', 12),
+    (26, 'Combien doit-it y avoir d''instances de singletons ?', 13),
+    (27, 'Nommez le livre dans lequel le singleton a été décrit ?', 13),
+    (28, 'Nommez la troisième partie du MVC ?', 14),
+    (29, 'À quoi sert la vue ?', 14);
 
 INSERT INTO reponses VALUES
-    (1, 'Une sorte de champginon', 1, 0),
-    (2, 'Une structure servant à organiser des données', 1, 1),
-    (3, 'Pour organiser efficacement des données', 2, 1),
-    (4, 'Pour faire de délicieux biscuits', 2, 0),
-    (5, 'Un attribut pouvant ouvrir une porte', 3, 0),
-    (6, 'Un attribut identifiant un tuple', 3, 1),
-    (7, 'Un attribut comportant plusieurs sous-données', 4, 1),
-    (8, 'Un attribut en matériaux renforcés', 4, 0),
-    (9, 'Unique', 5, 1),
-    (10, 'Additif', 5, 0),
-    (11, '\o/', 6, 0),
-    (12, '\sigma', 6, 1),
-    (13, 'Elle sert a joindre deux tables sur une condition', 7, 1),
-    (14, 'On peut s''en servir pour générer du code', 7, 0),
-    (15, 'Vrai', 8, 0),
-    (16, 'Faux', 8, 1),
-    (17, 'Oui', 9, 1),
-    (18, 'Non', 9, 0),
-    (19, 'Bill Gates', 10, 1),
-    (20, 'print("hello wolrd"', 10, 0),
-    (21, 'Il est exécutable', 11, 1),
-    (22, 'Il est mangeable', 11, 0),
-    (23, '1', 12, 0),
-    (24, '7', 12, 0),
-    (25, 'plus', 12, 1),
-    (26, 'Plus de patterns', 13, 1),
-    (27, 'Seulement les patterns nécessaires', 13, 0),
-    (28, 'Abstract Visitor', 14, 1),
-    (29, 'Concrete Builder', 14, 0),
-    (30, 'Facade', 15, 1),
-    (31, 'Observer', 15, 0),
-    (32, 'UML', 16, 1),
-    (33, 'Tous', 16, 0),
-    (34, 'Il est démontrablement rigoureux', 17, 1),
-    (35, 'Les machines sont strictement supérieures aux humains', 17, 0);
+    (NULL, 'Une sorte de champignon', 1, 0),
+    (NULL, 'Une structure servant à organiser des données', 1, 1),
+    (NULL, 'Pour organiser efficacement des données', 2, 1),
+    (NULL, 'Pour faire de délicieux biscuits', 2, 0),
+    (NULL, 'Un attribut pouvant ouvrir une porte', 3, 0),
+    (NULL, 'Un attribut identifiant un tuple de façon unique', 3, 1),
+    (NULL, 'Un attribut comportant plusieurs sous-données', 4, 1),
+    (NULL, 'Un attribut en matériaux renforcés', 4, 0),
+    (NULL, 'Unique', 5, 1),
+    (NULL, 'Additif', 5, 0),
+    (NULL, ':D', 6, 0),
+    (NULL, 'Sigma', 6, 1),
+    (NULL, 'Elle sert a joindre deux tables sur une condition', 7, 1),
+    (NULL, 'On peut s''en servir pour générer du code', 7, 0),
+    (NULL, 'Vrai', 8, 0),
+    (NULL, 'Faux', 8, 1),
+    (NULL, 'Oui', 9, 1),
+    (NULL, 'Non', 9, 0),
+    (NULL, 'Bill Gates', 10, 1),
+    (NULL, 'print("hello wolrd"', 10, 0),
+    (NULL, 'Il est exécutable', 11, 1),
+    (NULL, 'Il est mangeable', 11, 0),
+    (NULL, '1', 12, 0),
+    (NULL, '7', 12, 0),
+    (NULL, 'Toujours plus', 12, 1),
+    (NULL, 'Plus de patterns', 13, 1),
+    (NULL, 'Seulement les patterns nécessaires', 13, 0),
+    (NULL, 'Abstract Visitor', 14, 1),
+    (NULL, 'Concrete Builder', 14, 0),
+    (NULL, 'Facade', 15, 1),
+    (NULL, 'Observer', 15, 0),
+    (NULL, 'UML', 16, 1),
+    (NULL, 'Tous', 16, 0),
+    (NULL, 'Il est démontrablement rigoureux', 17, 1),
+    (NULL, 'Les machines sont strictement supérieures aux humains', 17, 0);
+
+INSERT INTO question_categories VALUES
+    ();
+
+-- WITH RECURSIVE parent(category_id, nom, level) AS (SELECT category_id, name, 0 FROM categories WHERE id=? UNION ALL SELECT categories.category_id, categories.name, parent.level + 1 FROM categories JOIN parent ON parent.category_id=categories.id) SELECT * FROM parent
