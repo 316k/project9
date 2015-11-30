@@ -18,7 +18,17 @@ WITH RECURSIVE parent_categories(category_id, name, level) AS (
 
 @app.route("/")
 def index():
-    return render_template('index.html', elements=123)
+    courses = query_db("SELECT * FROM cours ORDER BY id")
+    parties = {}
+    parties_cours = query_db("SELECT * FROM partie_cours")
+    
+    for partie in parties_cours:
+        if partie["cours_id"] not in parties:
+            parties[partie["cours_id"]] = []
+        
+        parties[partie["cours_id"]].append(partie)
+    
+    return render_template('index.html', courses=courses, parties=parties, categories=[])
 
 @app.route("/search/", methods=['GET', 'POST'])
 def search():

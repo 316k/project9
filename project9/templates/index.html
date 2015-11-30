@@ -3,22 +3,116 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-    <h2 class="ui dividing header">Questions à choix multiples</h2>
+    <h2 class="ui dividing header">Questions aléatoires à choix multiples</h2>
     <div class="ui two columns grid" style="position: relative">
         <div class="ui column">
-            <h3 class="ui dividing header">Questions aléatoires par cours</h3>
-            {% include "hierarchie-cours.html" %}
+            <h3 class="ui dividing header">Par cours</h3>
+            <div class="ui accordion" style="padding-left: 10px">
+                {% for cours in courses %}
+                    <div class="title">
+                        <i class="student icon"></i>
+                        {{ cours["name"] }}
+                        <small>({{ cours["sigle"] }})</small>
+                    </div>
+                    <div class="ui list content" style="margin-top: 10px; margin-bottom: 10px">
+                        {% for partie in parties[cours["id"]] %}
+                            <div class="item" style="margin-left: 15px">
+                                - <a>{{ partie["name"] }}</a>
+                            </div>
+                        {% endfor %}
+                            <div class="item" style="margin-left: 15px; margin-top: 10px">
+                                <a>>> Toutes les questions du cours</a>
+                            </div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="ui column">
-            <h3 class="ui dividing header">Rechercher par catégorie</h3>
-            <form action="/search/" method="POST">
-                <div class="ui input">
-                    <input placeholder="ex.: Forme normale" type="text" name="pattern" />
-                </div>
-                <button class="ui button">
-                    Rechercher
-                </button>
-            </form>
+            <h3 class="ui dividing header">Par catégorie</h3>
+            <ul>
+                {% for categorie in categories %}
+                    <li>
+                        <a>{{ categorie["name"] }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
+    <div class="ui segment">
+        <h2>Rechercher des questions</h2>
+        <div class="ui form">
+            <div class="field">
+                <label>Entrez les mots-clés qui vous intéressent</label>
+                <input type="text">
+            </div>
+        </div>
+        <br />
+        <div class="ui two columns grid">
+            <div class="ui column">
+                <table class="ui column celled table" id="questions">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Questions trouvées</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!--# ; Nom de la question-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui column">
+                <table class="ui celled table" id="categories">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Catégories trouvées</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!--# ; Nom de la question-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui column">
+                <table class="ui celled table" id="parties-cours">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Cours trouvés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!--# ; Nom de la question-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui column">
+                <table class="ui celled table" id="parties-cours">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Parties de cours trouvées</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!--# ; Nom de la question-->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+    <script>
+        $('.ui.accordion')
+          .accordion()
+        ;
+    </script>
 {% endblock %}

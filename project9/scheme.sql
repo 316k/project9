@@ -1,5 +1,3 @@
-PRAGMA foreign_keys = ON;
-
 -- Cours
 CREATE TABLE cours(
     id INTEGER NOT NULL PRIMARY KEY,
@@ -56,9 +54,9 @@ INSERT INTO categories VALUES
 
 INSERT INTO cours VALUES
     (1, 'Bases de données', 'IFT2935'),
-    (2, 'Génie Logiciel', 'IFT2935'),
-    (3, 'Génie Logiciel 2 : la vengence des classes abstraites', 'IFT2935'),
-    (4, 'Génie Logiciel 3 : le retour des interfaces d''AbstractFactoryFactory', 'IFT2935');
+    (2, 'Génie Logiciel', 'IFT2442'),
+    (3, 'Génie Logiciel 2 : la vengence des classes abstraites', 'IFT1337'),
+    (4, 'Génie Logiciel 3 : le retour des interfaces d''AbstractFactoryFactory', 'IFT2381');
 
 INSERT INTO partie_cours VALUES
     (1, 'Première partie : Introduction', 1),
@@ -144,7 +142,6 @@ INSERT INTO reponses VALUES
     (NULL, 'Il est démontrablement rigoureux', 17, 1),
     (NULL, 'Les machines sont strictement supérieures aux humains', 17, 0);
 
-INSERT INTO question_categories VALUES
-    ();
-
 -- WITH RECURSIVE parent(category_id, nom, level) AS (SELECT category_id, name, 0 FROM categories WHERE id=? UNION ALL SELECT categories.category_id, categories.name, parent.level + 1 FROM categories JOIN parent ON parent.category_id=categories.id) SELECT * FROM parent
+
+PRAGMA foreign_keys = ON;

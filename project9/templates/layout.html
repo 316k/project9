@@ -14,7 +14,7 @@
 <body>
   <div class="ui container">
     <header class="ui huge header">
-        <h1>project9</h1>
+        <h1><marquee>project9</marquee></h1>
     </header>
     {% block content %}{% endblock %}
     <footer class="ui align center">
@@ -24,6 +24,8 @@
     </footer>
   </div>
 </body>
-<script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ url_for('static', filename='bower_components/semantic-ui/dist/semantic.min.js') }}"></script>
+{% block script %}
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/semantic-ui/dist/semantic.min.js') }}"></script>
+{% endblock %}
 </html>
