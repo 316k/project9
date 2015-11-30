@@ -154,4 +154,13 @@ INSERT INTO reponses VALUES
     (32, 'UML', 16, 1),
     (33, 'Tous', 16, 0),
     (34, 'Il est démontrablement rigoureux', 17, 1),
-    (35, 'Les machines sont strictement supérieures aux humains', 17, 0);
+    (35, 'Les machines sont strictement supérieures aux humains', 17, 0),
+    (36, 'La réutilisabilité', 18, 1),
+    (37, 'La performance', 18, 0),
+    (38, 'Inverser les dépendences, tu dois', 19, 1),
+    (39, 'Avec modération, les interfaces tu utiliseras', 19, 0),
+    (40, 'Le couplage élevé', 20, 1),
+    (41, 'Une cohésion élevée', 20, 0),
+    (42, 'L''abstraction permet de rendre certaines structures plus génériques', 21, 1),
+    (43, 'L''abstraction 
+    ;
