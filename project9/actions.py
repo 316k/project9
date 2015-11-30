@@ -67,7 +67,7 @@ def question(by):
     elif by == "categorie":
         pass
     elif by == "global":
-        questions = query_db("""SELECT * FROM questions;""")
+        questions = query_db("SELECT * FROM questions")
 
 
     question = random.choice(questions)

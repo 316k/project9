@@ -17,11 +17,15 @@
                     <div class="ui list content" style="margin-top: 10px; margin-bottom: 10px">
                         {% for partie in parties[cours["id"]] %}
                             <div class="item" style="margin-left: 15px">
-                                - <a>{{ partie["name"] }}</a>
+                                - <a href="/question/partie-cours/{{partie['id']}}">
+                                    {{ partie["name"] }}
+                                  </a>
                             </div>
                         {% endfor %}
                         <div class="item" style="margin-left: 15px; margin-top: 10px">
-                            <a><i class="angle double right icon"></i> Toutes les questions du cours</a>
+                            <a href="/question/cours/{{cours['id']}}">
+                                <i class="angle double right icon"></i> Toutes les questions du cours
+                            </a>
                         </div>
                     </div>
                 {% endfor %}
