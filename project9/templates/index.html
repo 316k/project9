@@ -20,22 +20,26 @@
                                 - <a>{{ partie["name"] }}</a>
                             </div>
                         {% endfor %}
-                            <div class="item" style="margin-left: 15px; margin-top: 10px">
-                                <a>>> Toutes les questions du cours</a>
-                            </div>
+                        <div class="item" style="margin-left: 15px; margin-top: 10px">
+                            <a><i class="angle double right icon"></i> Toutes les questions du cours</a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
         <div class="ui column">
             <h3 class="ui dividing header">Par catégorie</h3>
-            <ul>
+            <div style="padding-left: 10px">
+                {% set previous = 0 %}
                 {% for categorie in categories %}
-                    <li>
-                        <a>{{ categorie["name"] }}</a>
-                    </li>
+                    <div data-level="{{ categorie['level'] }}" style="padding-left: {{ (categorie['level'] + 1) * 15}}px">
+                        <i class="tag icon"></i>
+                        <a href="/question/categorie/{{categorie['id']}}">
+                            {{ categorie["name"] }}
+                        </a>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     </div>
     <div class="ui segment">
@@ -43,7 +47,7 @@
         <div class="ui form">
             <div class="field">
                 <label>Entrez les mots-clés qui vous intéressent</label>
-                <input type="text">
+                <input type="text" placeholder="ex.: algèbre relationnel">
             </div>
         </div>
         <br />

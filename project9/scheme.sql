@@ -50,7 +50,10 @@ INSERT INTO categories VALUES
     (2, 'Formes normales', 1),
     (3, '1FN', 2),
     (4, '2FN', 2),
-    (5, '3FN', 2);
+    (5, '3FN', 2),
+    (6, 'Interactions machine-humain', NULL),
+    (7, 'Caractéristiques du code', 6),
+    (8, 'Caractéristiques des humains', 6);
 
 INSERT INTO cours VALUES
     (1, 'Bases de données', 'IFT2935'),

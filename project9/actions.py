@@ -28,7 +28,18 @@ def index():
         
         parties[partie["cours_id"]].append(partie)
     
-    return render_template('index.html', courses=courses, parties=parties, categories=[])
+    categories = query_db("""
+        WITH RECURSIVE children_categories(id, name, level) AS (
+          SELECT id, name, 0
+          FROM categories WHERE category_id IS NULL
+            UNION ALL
+          SELECT categories.id, categories.name, children_categories.level + 1
+          FROM categories
+          JOIN children_categories ON children_categories.id=categories.category_id
+          ORDER BY children_categories.level + 1 DESC
+        ) SELECT * FROM children_categories""")
+    
+    return render_template('index.html', courses=courses, parties=parties, categories=categories, len_categories=len(categories))
 
 @app.route("/search/", methods=['GET', 'POST'])
 def search():
