@@ -3,11 +3,29 @@
 {% block title %}Accueil{% endblock %}
 
 {% block content %}
-    <h2 class="ui dividing header">Question aléatoire</h2>
-    <div class="ui two columns grid">
-        <div class="ui column">
-            <h3 class="ui dividing header">Rechercher des questions par cours</h3>
-            {% include "hierarchie-cours.html" %}
+
+    <div class="ui form fluid card" id="question_card">
+        <h2 class="dividing header">{{question["content"]}}</h2>
+        <div class="content">
+            <div class="grouped fields">
+                {% for reponse in reponses %}
+                    <div class="field">
+                        <div class="radio checkbox">
+                            <label><input name="frequency" type="radio"> {{reponse["texte"]}}</label>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="ui primary button" type="submit" action="">
+                Confirmer
+            </button>
         </div>
     </div>
+
+    <!-- <div class="ui two columns grid">
+        <div class="ui column">
+            <h3 class="ui dividing header">Rechercher des questions par cours</h3>
+            {# {% include "hierarchie-cours.html" %} #}
+        </div>
+    </div> -->
 {% endblock %}

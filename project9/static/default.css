@@ -10,3 +10,7 @@
 #content {
     margin-top: 8%;
 }
+
+#question_card {
+    display: block;
+}

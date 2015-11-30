@@ -44,14 +44,14 @@ def index():
 @app.route("/search/", methods=['GET', 'POST'])
 def search():
     pattern = request.form['pattern']
-    
+
     # Recherche parmi les cours, parties de cours, et catégories
     #for mot in " ".split(pattern):
     #    query += ' IS LIKE %?%'
-    
-    
+
     return render_template('search.html', questions=questions, pattern=pattern)
 
+@app.route("/question/<by>")
 @app.route("/question/<by>/<id>")
 def question(by):
 
@@ -66,8 +66,14 @@ def question(by):
         pass
     elif by == "categorie":
         pass
-    
+    elif by == "global":
+        questions = query_db("""SELECT * FROM questions;""")
+
+
     question = random.choice(questions)
-    
-    return render_template('question.html', questions=questions)
+    reponses = query_db("""SELECT * FROM reponses JOIN questions ON reponses.question_id = questions.id 
+        WHERE reponses.question_id = {} """.format(question["id"])
+    )
+    print(reponses)
+    return render_template('question.html', question=question, reponses=reponses)
 
