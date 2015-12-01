@@ -18,7 +18,7 @@ WITH RECURSIVE parent_categories(category_id, name, level) AS (
 
 @app.route("/")
 def index():
-    courses = query_db("SELECT * FROM cours ORDER BY id")
+    courses = query_db("SELECT * FROM cours")
     parties = {}
     parties_cours = query_db("SELECT * FROM partie_cours")
     
@@ -93,7 +93,7 @@ def question(by, id=None):
           JOIN parent_categories ON parent_categories.category_id=categories.id
         ) SELECT category_id FROM parent_categories UNION SELECT ?""", (id,id))
 
-    categories = [int(i['category_id']) for i in categories if i['category_id'] is not None]
+    categories = [str(i['category_id']) for i in categories if i['category_id'] is not None]
 
     question = random.choice(questions)
 
@@ -107,7 +107,7 @@ def stats():
         ("Réponses par cours", query_db("""
             SELECT sigle AS `Sigle`, cours.name AS `Nom`, COUNT(reponses.id) AS `Nombre de réponses`
             FROM cours
-            JOIN partie_cours ON partie_cours.cours_id=cours.id
+            JOIN partie_cours ON partie_cours.cours_id=cours.sigle
             JOIN questions ON partie_cours.id=questions.partie_cours_id
             JOIN reponses ON reponses.question_id=questions.id
             GROUP BY cours.sigle
@@ -116,15 +116,15 @@ def stats():
             SELECT AVG(cnt) AS `Nombre moyen` FROM (
                 SELECT COUNT(reponses.id) as cnt
                     FROM cours
-                    JOIN partie_cours ON partie_cours.cours_id=cours.id
+                    JOIN partie_cours ON partie_cours.cours_id=cours.sigle
                     JOIN questions ON partie_cours.id=questions.partie_cours_id
                     JOIN reponses ON reponses.question_id=questions.id GROUP BY cours.sigle
             )""")),
         ("Nombre de questions par professeur", query_db("""
             SELECT prenom AS `Prénom`, nom AS `Nom`, COUNT(questions.id) AS `Nombre de questions` FROM professeurs AS professeur
             JOIN professeur_cours ON professeur.id=professeur_cours.professeur_id
-            JOIN cours ON professeur_cours.cours_id=cours.id
-            JOIN partie_cours ON partie_cours.cours_id=cours.id
+            JOIN cours ON professeur_cours.cours_id=cours.sigle
+            JOIN partie_cours ON partie_cours.cours_id=cours.sigle
             JOIN questions ON questions.partie_cours_id=partie_cours.id
             GROUP BY professeur.id""")),
         #("", query_db()),

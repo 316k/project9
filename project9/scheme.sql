@@ -8,17 +8,16 @@ CREATE TABLE professeurs(
 
 -- Cours
 CREATE TABLE cours(
-    id INTEGER NOT NULL PRIMARY KEY,
-    name TEXT,
-    sigle TEXT
+    sigle TEXT NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL
 );
 
 -- Cours donnés par un professeur
 CREATE TABLE professeur_cours(
     professeur_id INTEGER NOT NULL,
-    cours_id INTEGER NOT NULL,
+    cours_id TEXT NOT NULL,
     FOREIGN KEY(professeur_id) REFERENCES professeurs(id),
-    FOREIGN KEY(cours_id) REFERENCES cours(id),
+    FOREIGN KEY(cours_id) REFERENCES cours(sigle),
     PRIMARY KEY (professeur_id, cours_id)
 );
 
@@ -26,8 +25,8 @@ CREATE TABLE professeur_cours(
 CREATE TABLE partie_cours(
     id INTEGER NOT NULL PRIMARY KEY,
     name TEXT,
-    cours_id INTEGER NOT NULL,
-    FOREIGN KEY(cours_id) REFERENCES cours(id)
+    cours_id TEXT NOT NULL,
+    FOREIGN KEY(cours_id) REFERENCES cours(sigle)
 );
 
 -- Questions à choix multiples
@@ -86,32 +85,32 @@ INSERT INTO professeurs VALUES
     (3, 'Erick', 'Gamma', 'connect-four');
 
 INSERT INTO cours VALUES
-    (1, 'Bases de données', 'IFT2935'),
-    (2, 'Génie Logiciel', 'IFT2442'),
-    (3, 'Génie Logiciel 2 : la vengence des classes abstraites', 'IFT1337'),
-    (4, 'Génie Logiciel 3 : le retour des interfaces d''AbstractFactoryFactory', 'IFT2381');
+    ('IFT2935', 'Bases de données'),
+    ('IFT2442', 'Génie Logiciel'),
+    ('IFT1337', 'Génie Logiciel 2 : la vengence des classes abstraites'),
+    ('IFT2381', 'Génie Logiciel 3 : le retour des interfaces d''AbstractFactoryFactory');
 
 INSERT INTO professeur_cours VALUES
-    (1, 1),
-    (3, 2),
-    (2, 3),
-    (2, 4);
+    (1, 'IFT2935'),
+    (3, 'IFT2442'),
+    (2, 'IFT1337'),
+    (2, 'IFT2381');
 
 INSERT INTO partie_cours VALUES
-    (1, 'Première partie : Introduction', 1),
-    (2, 'Deuxième partie : Modèle Entité Relation', 1),
-    (3, 'Troisième partie : Modèle Relationnel', 1),
-    (4, 'Quatrième partie : L''algèbre et le calcul Relationnel', 1),
-    (5, 'Partie 1 : les différences entre le code et le programmeur', 2),
-    (6, 'Partie 2 : intro à l''overengineering', 2),
-    (7, 'Partie 3 : l''overengineering généralisé', 2),
-    (8, 'Partie 4 : l''overengineering généré par ordinateur', 2),
-    (9, 'Partie 1 : Les vertues de l''abstraction', 4),
-    (10, 'Partie 2 : L''abstraction et la vertue', 4),
-    (11, 'Partie 3 : le rôle des factoryFactory dans l''abstraction', 4),
-    (12, 'Partie 4 : L''abstraction des factoryFactory par une interface', 4),
-    (13, '1 : La guerre des singletons', 3),
-    (14, '2 : 300 MVC', 3);
+    (1, 'Première partie : Introduction', 'IFT2935'),
+    (2, 'Deuxième partie : Modèle Entité Relation', 'IFT2935'),
+    (3, 'Troisième partie : Modèle Relationnel', 'IFT2935'),
+    (4, 'Quatrième partie : L''algèbre et le calcul Relationnel', 'IFT2935'),
+    (5, 'Partie 1 : les différences entre le code et le programmeur', 'IFT2442'),
+    (6, 'Partie 2 : intro à l''overengineering', 'IFT2442'),
+    (7, 'Partie 3 : l''overengineering généralisé', 'IFT2442'),
+    (8, 'Partie 4 : l''overengineering généré par ordinateur', 'IFT2442'),
+    (9, 'Partie 1 : Les vertues de l''abstraction', 'IFT2381'),
+    (10, 'Partie 2 : L''abstraction et la vertue', 'IFT2381'),
+    (11, 'Partie 3 : le rôle des factoryFactory dans l''abstraction', 'IFT2381'),
+    (12, 'Partie 4 : L''abstraction des factoryFactory par une interface', 'IFT2381'),
+    (13, '1 : La guerre des singletons', 'IFT1337'),
+    (14, '2 : 300 MVC', 'IFT1337');
 
 INSERT INTO questions(id, content, partie_cours_id) VALUES
     (1, 'Qu''est-ce qu''une base de données ?', 1),
