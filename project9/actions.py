@@ -105,13 +105,15 @@ def question(by, id=None):
 def stats():
     stats = [
         ("Réponses par cours", query_db("""
-            SELECT sigle, COUNT(reponses.id)
+            SELECT sigle AS `Sigle`, cours.name AS `Nom`, COUNT(reponses.id) AS `Nombre de réponses`
             FROM cours
             JOIN partie_cours ON partie_cours.cours_id=cours.id
             JOIN questions ON partie_cours.id=questions.partie_cours_id
-            JOIN reponses ON reponses.question_id=questions.id GROUP BY cours.sigle""")),
+            JOIN reponses ON reponses.question_id=questions.id
+            GROUP BY cours.sigle
+            ORDER BY cours.sigle""")),
         ("Moyenne de réponses par cours", query_db("""
-            SELECT AVG(cnt) FROM (
+            SELECT AVG(cnt) AS `Nombre moyen` FROM (
                 SELECT COUNT(reponses.id) as cnt
                     FROM cours
                     JOIN partie_cours ON partie_cours.cours_id=cours.id
@@ -119,13 +121,13 @@ def stats():
                     JOIN reponses ON reponses.question_id=questions.id GROUP BY cours.sigle
             )""")),
         ("Nombre de questions par professeur", query_db("""
-            SELECT prenom, nom, COUNT(questions.id) AS count FROM professeurs AS professeur
+            SELECT prenom AS `Prénom`, nom AS `Nom`, COUNT(questions.id) AS `Nombre de questions` FROM professeurs AS professeur
             JOIN professeur_cours ON professeur.id=professeur_cours.professeur_id
             JOIN cours ON professeur_cours.cours_id=cours.id
             JOIN partie_cours ON partie_cours.cours_id=cours.id
             JOIN questions ON questions.partie_cours_id=partie_cours.id
             GROUP BY professeur.id""")),
-        ("", query_db()),
+        #("", query_db()),
     ]
 
     return render_template('stats.html', stats=stats)

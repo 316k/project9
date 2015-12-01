@@ -17,6 +17,8 @@ CREATE TABLE cours(
 CREATE TABLE professeur_cours(
     professeur_id INTEGER NOT NULL,
     cours_id INTEGER NOT NULL,
+    FOREIGN KEY(professeur_id) REFERENCES professeurs(id),
+    FOREIGN KEY(cours_id) REFERENCES cours(id),
     PRIMARY KEY (professeur_id, cours_id)
 );
 
