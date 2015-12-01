@@ -4,28 +4,68 @@
 
 {% block content %}
 
-    <div class="ui form fluid card" id="question_card">
-        <h2 class="dividing header">{{question["content"]}}</h2>
-        <div class="content">
-            <div class="grouped fields">
-                {% for reponse in reponses %}
-                    <div class="field">
-                        <div class="radio checkbox">
-                            <label><input name="frequency" type="radio"> {{reponse["texte"]}}</label>
+<div class="ui two columns grid">
+    <div class="ui column">
+        <div class="ui form segment" id="question_card">
+            <h2 class="dividing header">{{question["content"]}}</h2>
+            <div class="content">
+                <div class="grouped fields">
+                    {% for reponse in reponses %}
+                        <div class="field">
+                            <div class="radio checkbox">
+                                <label><input data-vrai="{{reponse['vrai']}}" name="frequency" type="radio"> {{reponse["texte"]}}</label>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
+                <button class="ui primary button" type="submit" onclick="validate()">
+                    Confirmer
+                </button>
             </div>
-            <button class="ui primary button" type="submit" action="">
-                Confirmer
-            </button>
         </div>
     </div>
-
-    <!-- <div class="ui two columns grid">
-        <div class="ui column">
-            <h3 class="ui dividing header">Rechercher des questions par cours</h3>
-            {# {% include "hierarchie-cours.html" %} #}
+    <div class="ui column">
+        <div class="ui fluid card" style="width: 250px; margin: auto">
+            <div class="image">
+                <img id="img" style="width: 250px; height: 250px" src="{{ url_for('static', filename='img/wut.jpg') }}">
+            </div>
+            <div class="content">
+                <p id="waiting">Veuillez sélectionner une réponse</p>
+                <p id="good" class="ui success message"><strong>Yay !</strong> Vous avez choisi la bonne réponse !</p>
+                <p id="bad" class="ui error message"><strong>Nay !</strong> Vous avez choisi la mauvaise réponse !</p>
+                <a id="next" class="ui primary button" href="">Prochaine question <i class="right arrow icon"></i></a>
+            </div>
         </div>
-    </div> -->
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+    <script>
+        var url = "{{ url_for('static', filename='img/') }}";
+        var num = Math.floor((Math.random() * 10) % 3) + 1;
+        var validated = false;
+        
+        $(function() {
+            $('#good, #bad, #next').hide();
+        });
+        
+        function validate() {
+            if(validated) {
+                return
+            }
+            validated = true;
+            $('input, button').prop('disabled', true);
+            $('#waiting').slideUp();
+            
+            var val = $('input:checked').data('vrai') ? 'good' : 'bad';
+            
+            $('#' + val).slideDown();
+            $('#img').attr('src', url + val + num + '.jpg');
+            
+            $('#next').slideDown();
+        }
+    </script>
 {% endblock %}

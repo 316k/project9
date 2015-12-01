@@ -1,5 +1,5 @@
 from project9 import app, query_db
-from flask import request, redirect, url_for, render_template, g
+from flask import request, redirect, url_for, render_template, g, jsonify
 import random
 
 # Sous-requête pratique
@@ -28,6 +28,7 @@ def index():
         
         parties[partie["cours_id"]].append(partie)
     
+    # Requête récursive pour trouver les catégories, les sous-catégories, les sous-sous-catégories...
     categories = query_db("""
         WITH RECURSIVE children_categories(id, name, level) AS (
           SELECT id, name, 0
@@ -41,39 +42,49 @@ def index():
     
     return render_template('index.html', courses=courses, parties=parties, categories=categories, len_categories=len(categories))
 
-@app.route("/search/", methods=['GET', 'POST'])
+@app.route("/search", methods=['POST'])
 def search():
+    
     pattern = request.form['pattern']
-
-    # Recherche parmi les cours, parties de cours, et catégories
-    #for mot in " ".split(pattern):
-    #    query += ' IS LIKE %?%'
-
-    return render_template('search.html', questions=questions, pattern=pattern)
+    op = ' AND ' if request.form['all'] == 'true' else ' OR '
+    if not pattern:
+        return jsonify(success=True)
+    
+    words = list(map(str.lower, map(lambda x: x if '%' in x else '%' + x + '%', pattern.split(' '))))
+    
+    questions = query_db('SELECT id, content AS text FROM questions WHERE ' + op.join(['LOWER(content) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
+    categories = query_db('SELECT id, name AS text FROM categories WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
+    cours = query_db('SELECT id, name AS text FROM cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
+    parties_cours = query_db('SELECT id, name AS text FROM partie_cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
+    
+    return jsonify(success=True, questions=questions, categories=categories, cours=cours, partie_cours=parties_cours)
 
 @app.route("/question/<by>")
 @app.route("/question/<by>/<id>")
-def question(by):
+def question(by, id=None):
 
     questions = []
     if by == "cours":
         questions = query_db("""
             SELECT * FROM questions
             WHERE partie_cours_id IN (
-                SELECT id FROM partie_cours
-            )""")
-    elif by == "partie-cours":
-        pass
+                SELECT cours_id FROM partie_cours
+                WHERE id=?
+            )""", id)
+        print('AAAAAAA', questions)
+    elif by == "partie_cours":
+        questions = query_db("SELECT * FROM questions WHERE partie_cours_id=?", (id,))
     elif by == "categorie":
         pass
+    elif by == "questions":
+        questions = query_db("SELECT * FROM questions WHERE id=?", (id,))
     elif by == "global":
         questions = query_db("SELECT * FROM questions")
 
 
     question = random.choice(questions)
-    reponses = query_db("""SELECT * FROM reponses JOIN questions ON reponses.question_id = questions.id 
-        WHERE reponses.question_id = {} """.format(question["id"])
-    )
-    print(reponses)
+
+    reponses = query_db("SELECT * FROM reponses WHERE question_id=? ORDER BY RANDOM()", (question["id"],))
+
     return render_template('question.html', question=question, reponses=reponses)
 

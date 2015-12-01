@@ -1,17 +1,20 @@
 import sqlite3
 from flask import Flask, g
+from os.path import isfile
 
 app = Flask(__name__)
 app.debug = True
 app.secret_key = 'rkunhffrzrag'
 
+
 def get_db():
+    global database
     db = getattr(g, '_database', None)
     if db is None:
-        g.db = sqlite3.connect(':memory:')
+        db = g._database = sqlite3.connect(':memory:')
         with open('project9/scheme.sql', 'r') as sql:
-            g.db.executescript("".join(sql.readlines()))
-    return g.db
+            g._database.executescript("".join(sql.readlines()))
+    return db
 
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
