@@ -59,6 +59,8 @@ CREATE TABLE categories(
 CREATE TABLE question_categories(
     question_id INTEGER NOT NULL,
     category_id INTEGER NOT NULL,
+    FOREIGN KEY(question_id) REFERENCES questions(id),
+    FOREIGN KEY(category_id) REFERENCES categories(id),
     PRIMARY KEY (question_id, category_id)
 );
 
