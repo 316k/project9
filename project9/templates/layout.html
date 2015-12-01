@@ -22,9 +22,9 @@
                 Home
             </a>
             <div class="item">
-                <i class="trophy icon"></i> Score : 13%
+                <i class="trophy icon"></i> Score : <span id="score"></span>%
             </div>
-            <a class="item">
+            <a class="item" onclick="localStorage.clear(); update_score()">
                 <i class="undo icon"></i> Reset
             </a>
         </div>
@@ -41,5 +41,14 @@
 {% block script %}
     <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bower_components/semantic-ui/dist/semantic.min.js') }}"></script>
+    <script>
+        function update_score() {
+            var good = parseInt(localStorage.getItem('good') || 0);
+            var bad = parseInt(localStorage.getItem('bad') || 0);
+            
+            $('#score').text(Math.round(good / ((bad + good) || 1) * 100), 0);
+        }
+        $(update_score);
+    </script>
 {% endblock %}
 </html>
