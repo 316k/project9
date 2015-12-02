@@ -31,65 +31,22 @@
             <h3>Mes statistiques</h3>
             <div id="rate" class="ui large progress">
                 <div class="bar"></div>
-                <div class="label">Taux de réussite : <span class="score-placeholder"></span>%</div>
+                <div class="label">Taux de réussite moyen des questions: {{moyenne_reussite["average_reussite"]}} %</div>
             </div>
             <br />
-            <div id="good" class="ui small green progress">
-                <div class="bar"></div>
-                <div class="label">Nombre de bonne réponses : <span class="good-placeholder"></span></div>
-            </div>
-            <div id="bad" class="ui small red progress">
-                <div class="bar"></div>
-                <div class="label">Nombre d'échecs : <span class="bad-placeholder"></span></div>
-            </div>
-            <div id="message-green" class="ui success message">
-                <strong>Félicitation !</strong>
-                <p>Vous êtes sur une bonne voie, continuez le bon travail !</p>
-            </div>
-            <div id="message-yellow" class="ui warning message">
-                <strong>C'est bien...</strong>
-                <p>Vous êtes sur une bonne voie, continuez à travailler sur vos cours et vos notes en seront récompensées !</p>
-            </div>
-            <div id="message-red" class="ui error message">
-                <strong>Attention !</strong>
-                <p>Vous devriez vous remettre au travail, votre taux de succès est dangeureusement bas !</p>
-            </div>
-
+            <h4>Taux de réeussite par questions</h4>
+            {% for cours in courses %}
+                <h5>{{cours["sigle"]}}</h5>
+                {% for taux_reussite_question in taux_reussite_questions_cours[cours["sigle"]]%}
+                    <div id="good" class="ui small progress">
+                        <div class="bar"></div>
+                        <div class="label">
+                            {{taux_reussite_question[0]}}: {{taux_reussite_question[1]}}
+                            <span class="{{taux_reussite_question[1]}}"></span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
-{% endblock %}
-
-{% block script %}
-    {{ super() }}
-    <script>
-        $(function() {
-            $('.message').hide();
-
-            var val = 'red';
-
-            if(user_score() > 80) {
-                val = 'green';
-            } else if(user_score() > 50) {
-                val = 'yellow';
-            }
-
-            $('#rate').addClass(val).progress({
-                percent: user_score()
-            });
-
-            var good = parseInt(localStorage.getItem('good') || 0);
-            var bad = parseInt(localStorage.getItem('bad') || 0);
-
-            $('#good').progress({
-                percent: good / ((good + bad) || 1) * 100
-            });
-            $('.good-placeholder').text(good);
-            
-            $('#bad').progress({
-                percent: bad / ((good + bad) || 1) * 100
-            });
-            $('.bad-placeholder').text(bad);
-            $('#message-' + val).show();
-        });
-    </script>
 {% endblock %}
