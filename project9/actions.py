@@ -54,7 +54,7 @@ def search():
     
     questions = query_db('SELECT id, content AS text FROM questions WHERE ' + op.join(['LOWER(content) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
     categories = query_db('SELECT id, name AS text FROM categories WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
-    cours = query_db('SELECT id, name AS text FROM cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
+    cours = query_db('SELECT sigle AS id, name AS text FROM cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
     parties_cours = query_db('SELECT id, name AS text FROM partie_cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
     
     return jsonify(success=True, questions=questions, categories=categories, cours=cours, partie_cours=parties_cours)
@@ -72,12 +72,23 @@ def question(by, id=None):
             )""", (id,))
     elif by == "partie_cours":
         questions = query_db("SELECT * FROM questions WHERE partie_cours_id=?", (id,))
-    elif by == "categorie":
+    elif by == "categories":
+        categories = query_db("""
+            WITH RECURSIVE children_categories(id, name, level) AS (
+              SELECT id, name, 0
+              FROM categories WHERE category_id = ?
+                UNION ALL
+              SELECT categories.id, categories.name, children_categories.level + 1
+              FROM categories
+              JOIN children_categories ON children_categories.id=categories.category_id
+              ORDER BY children_categories.level + 1 DESC
+            ) SELECT * FROM children_categories UNION SELECT id, name, 0 FROM categories WHERE id = ?""", (id,id))
+        print([str(x['id']) for x in categories])
         questions = query_db("""
-            SELECT *, question.id AS id FROM questions AS question
-            JOIN question_categories ON question.id=question_categories.question_id
-            JOIN categories AS categorie ON question_categories.category_id=categorie.id
-            WHERE categorie.id = ?""", (id,))
+            SELECT * FROM questions AS question
+            JOIN question_categories
+            ON question_categories.question_id=question.id AND question_categories.category_id IN (""" + ', '.join([str(x['id']) for x in categories]) + ')')
+        print(len(questions))
     elif by == "questions":
         questions = query_db("SELECT * FROM questions WHERE id=?", (id,))
     elif by == "global":
