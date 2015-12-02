@@ -6,6 +6,7 @@
 
 Le projet que nous avons mené a terme consiste en un système de questions à choix multiples. Notre projet vise à rassembler des connaissances pertinentes à la réeussite d'un cours afin que les étudiants puissent tester leurs connaissances de manière efficaces et attrayantes. Notre système est conçu pour accumuler de l'information à propos des réponses des étudiants aux questions de manière à ce qu'un professeur puisse cibler la matière moins comprise. En utilisant cet outil, les professeurs pourront structurer leurs cours en fonctions des difficultés des élèves de manière à optimiser le temps de cours.
 
+### Diagramme E-R
 
 Le diagramme entit�-relation a l'entit� principale 'professeur', qui est repr�sent� par son id, 
 puis qui a comme informations son pr�nom, son nom et son mot-de-passe. Ce professeur donne 
