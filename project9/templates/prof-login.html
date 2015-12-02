@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+    <h2>Login</h2>
+    <form method="POST" action="">
+        <div class="ui form" style="width: 30%; margin: auto">
+            <div class="field">
+                <label>Prénom
+                    <input type="text" name="prenom" />
+                </label><br />
+                <label>Nom
+                    <input type="text" name="nom" />
+                </label><br />
+                <label>Mot de passe
+                    <input type="password" name="pwd" />
+                </label>
+            </div>
+            <button type="submit" class="ui button">Login</button>
+        </div>
+    </form>
+{% endblock %}

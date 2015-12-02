@@ -54,7 +54,7 @@ def search():
     
     questions = query_db('SELECT id, content AS text FROM questions WHERE ' + op.join(['LOWER(content) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
     categories = query_db('SELECT id, name AS text FROM categories WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
-    cours = query_db('SELECT id, name AS text FROM cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
+    cours = query_db('SELECT sigle AS id, name AS text FROM cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
     parties_cours = query_db('SELECT id, name AS text FROM partie_cours WHERE ' + op.join(['LOWER(name) LIKE ?' for i in range(len(words))]) + ' LIMIT 10', words)
     
     return jsonify(success=True, questions=questions, categories=categories, cours=cours, partie_cours=parties_cours)
@@ -72,12 +72,23 @@ def question(by, id=None):
             )""", (id,))
     elif by == "partie_cours":
         questions = query_db("SELECT * FROM questions WHERE partie_cours_id=?", (id,))
-    elif by == "categorie":
+    elif by == "categories":
+        categories = query_db("""
+            WITH RECURSIVE children_categories(id, name, level) AS (
+              SELECT id, name, 0
+              FROM categories WHERE category_id = ?
+                UNION ALL
+              SELECT categories.id, categories.name, children_categories.level + 1
+              FROM categories
+              JOIN children_categories ON children_categories.id=categories.category_id
+              ORDER BY children_categories.level + 1 DESC
+            ) SELECT * FROM children_categories UNION SELECT id, name, 0 FROM categories WHERE id = ?""", (id,id))
+        print([str(x['id']) for x in categories])
         questions = query_db("""
-            SELECT *, question.id AS id FROM questions AS question
-            JOIN question_categories ON question.id=question_categories.question_id
-            JOIN categories AS categorie ON question_categories.category_id=categorie.id
-            WHERE categorie.id = ?""", (id,))
+            SELECT * FROM questions AS question
+            JOIN question_categories
+            ON question_categories.question_id=question.id AND question_categories.category_id IN (""" + ', '.join([str(x['id']) for x in categories]) + ')')
+        print(len(questions))
     elif by == "questions":
         questions = query_db("SELECT * FROM questions WHERE id=?", (id,))
     elif by == "global":
@@ -127,7 +138,6 @@ def stats():
             JOIN partie_cours ON partie_cours.cours_id=cours.sigle
             JOIN questions ON questions.partie_cours_id=partie_cours.id
             GROUP BY professeur.id""")),
-        #("", query_db()),
     ]
 
     return render_template('stats.html', stats=stats)
@@ -141,3 +151,19 @@ def good(question):
 def bad(question):
     query_db("UPDATE questions SET failures = failures + 1 WHERE id = ?", (question,))
     return jsonify(success=True)
+
+@app.route('/prof/', methods=['GET', 'POST'])
+def prof():
+    if 'nom' in request.form and 'pwd' in request.form and 'prenom' in request.form:
+        prof = query_db("SELECT * FROM professeurs WHERE nom=? AND mot_de_passe=? AND prenom=?", (request.form['nom'], request.form['pwd'], request.form['prenom']))
+        if len(prof) == 1:
+            prof = prof[0]
+            cours = query_db("""
+                SELECT *, COUNT(questions.id) AS nbr_questions FROM cours
+                JOIN professeur_cours ON professeur_cours.professeur_id=?
+                JOIN partie_cours ON partie_cours.cours_id=cours.sigle
+                JOIN questions ON questions.partie_cours_id=partie_cours.id""", (prof['id'],))
+            return render_template('prof.html', prof=prof, courses=cours)
+
+    return render_template('prof-login.html')
+

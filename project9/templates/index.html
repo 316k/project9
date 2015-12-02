@@ -15,7 +15,7 @@
                         <small>({{ cours["sigle"] }})</small>
                     </div>
                     <div class="ui list content" style="margin-top: 10px; margin-bottom: 10px">
-                        {% for partie in parties[cours["id"]] %}
+                        {% for partie in parties[cours["sigle"]] %}
                             <div class="item" style="margin-left: 15px">
                                 - <a href="/question/partie_cours/{{partie['id']}}">
                                     {{ partie["name"] }}
@@ -38,7 +38,7 @@
                 {% for categorie in categories %}
                     <div data-level="{{ categorie['level'] }}" style="padding-left: {{ (categorie['level'] + 1) * 15}}px">
                         <i class="tag icon"></i>
-                        <a href="/question/categorie/{{categorie['id']}}">
+                        <a href="/question/categories/{{categorie['id']}}">
                             {{ categorie["name"] }}
                         </a>
                     </div>

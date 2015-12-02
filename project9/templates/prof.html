@@ -4,31 +4,28 @@
 
 {% block content %}
 
-    <h2>Statistiques</h2>
+    <h2>Bonjour, {{prof['prenom']}} {{prof['nom']}} !</h2>
     <div class="ui two columns grid">
         <div class="ui column">
-            <h3>Statistiques du site</h3>
-            {% for stat in stats %}
-                <h3>{{stat[0]}}</h3>
-                <table class="ui celled table">
-                    <thead>
+            <h3>Vos cours</h3>
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>Sigle</th>
+                        <th>Nom</th>
+                        <th>Nombre de questions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cours in courses %}
                         <tr>
-                            {% for key in stat[1][0].keys() %}
-                                <th>{{key}}</th>
-                            {% endfor %}
+                            <td>{{cours['sigle']}}</td>
+                            <td><a href="/question/cours/{{cours['id']}}">{{cours['name']}}</a></td>
+                            <td>{{cours['nbr_questions']}}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in stat[1] %}
-                            <tr>
-                                {% for col in row %}
-                                    <td>{{row[col]}}</td>
-                                {% endfor %}
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
         <div class="ui column">
             <h3>Mes statistiques</h3>
