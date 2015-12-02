@@ -180,7 +180,8 @@ def prof():
                     ORDER BY rapport DESC""", [prof['id']])
             taux_reussite_questions_cours = {cour["sigle"]:[] for cour in cours}
             for taux_reussite_question in taux_reussite_questions:
-                taux_reussite_questions_cours[taux_reussite_question["sigle"]].append([taux_reussite_question["content"], taux_reussite_question["rapport"]])
+                sub_content = taux_reussite_question["content"] if len(taux_reussite_question["content"]) < 55 else taux_reussite_question["content"][0:55] + "..."
+                taux_reussite_questions_cours[taux_reussite_question["sigle"]].append([taux_reussite_question["content"], taux_reussite_question["rapport"], sub_content])
 
             return render_template('prof.html',
                 prof=prof, courses=cours, moyenne_reussite=moyenne_reussite,

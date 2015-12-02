@@ -40,8 +40,8 @@
                 {% for taux_reussite_question in taux_reussite_questions_cours[cours["sigle"]] %}
                     <div id="good" class="ui small progress">
                         <div class="bar"></div>
-                        <div class="label">
-                            {{taux_reussite_question[0]}} ({{taux_reussite_question[1]}} %)
+                        <div class="label" title="{{taux_reussite_question[0]}}">
+                            {{taux_reussite_question[2]}} ({{taux_reussite_question[1]}} %)
                             <span class="{{taux_reussite_question[1]}}"></span>
                         </div>
                     </div>
