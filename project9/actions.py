@@ -163,7 +163,16 @@ def prof():
                 JOIN professeur_cours ON professeur_cours.professeur_id=?
                 JOIN partie_cours ON partie_cours.cours_id=cours.sigle
                 JOIN questions ON questions.partie_cours_id=partie_cours.id""", (prof['id'],))
-            return render_template('prof.html', prof=prof, courses=cours)
+            moyenne_reussite = query_db("""
+                SELECT AVG(rapport) AS average_reussite FROM (
+                    SELECT (success/(success+failures+1))*100 AS rapport
+                    FROM questions
+                    JOIN partie_cours ON questions.partie_cours_id = partie_cours.id
+                    JOIN cours ON partie_cours.cours_id=cours.sigle
+                    JOIN professeur_cours ON professeur_cours.professeur_id = ?
+                )""", [prof['id'])
+
+            return render_template('prof.html', prof=prof, courses=cours,moyenne_reussite )
 
     return render_template('prof-login.html')
 
