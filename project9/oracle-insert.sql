@@ -26,15 +26,15 @@ INSERT INTO partie_cours VALUES(2, 'Deuxième partie : Modèle Entité Relation'
 INSERT INTO partie_cours VALUES(3, 'Troisième partie : Modèle Relationnel', 'IFT2935');
 INSERT INTO partie_cours VALUES(4, 'Quatrième partie : L''algèbre et le calcul Relationnel', 'IFT2935');
 
-INSERT INTO questions VALUES(1, 'Qu''est-ce qu''une base de données ?', 1);
-INSERT INTO questions VALUES(2, 'Pourquoi a-t-on besoin de bases de données ?', 1);
-INSERT INTO questions VALUES(3, 'Qu''est-ce qu''un attribut clé ?', 2);
-INSERT INTO questions VALUES(4, 'Qu''est-ce qu''un attribut composite ?', 2);
-INSERT INTO questions VALUES(5, 'Nommez un types de contrainte d''intégrité relationnelle', 3);
-INSERT INTO questions VALUES(6, 'Quel est le symbol pour l''opération de SÉLECTION ?', 3);
-INSERT INTO questions VALUES(7, 'Quel est l''utilité de la thêta jointure ?', 4);
-INSERT INTO questions VALUES(8, 'Existe-t-il un opérateur nommé sesqui-jointure ?', 4);
-INSERT INTO questions VALUES(9, 'Un vice-président d''Hydro Québec a-t-il déjà suivi un cours de bases de données à l''UdeM avec Claude Frasson ?', 1);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(1, 'Qu''est-ce qu''une base de données ?', 1);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(2, 'Pourquoi a-t-on besoin de bases de données ?', 1);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(3, 'Qu''est-ce qu''un attribut clé ?', 2);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(4, 'Qu''est-ce qu''un attribut composite ?', 2);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(5, 'Nommez un types de contrainte d''intégrité relationnelle', 3);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(6, 'Quel est le symbol pour l''opération de SÉLECTION ?', 3);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(7, 'Quel est l''utilité de la thêta jointure ?', 4);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(8, 'Existe-t-il un opérateur nommé sesqui-jointure ?', 4);
+INSERT INTO questions VALUES(id, content, partie_cours_id)(9, 'Un vice-président d''Hydro Québec a-t-il déjà suivi un cours de bases de données à l''UdeM avec Claude Frasson ?', 1);
 
 INSERT INTO reponses VALUES(1, 'Une sorte de champginon', 1, 0);
 INSERT INTO reponses VALUES(2, 'Une structure servant à organiser des données', 1, 1);
