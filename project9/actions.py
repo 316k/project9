@@ -172,7 +172,7 @@ def prof():
                     JOIN professeur_cours ON professeur_cours.professeur_id = ?
                 )""", [prof['id']])
 
-            return render_template('prof.html', prof=prof, courses=cours,moyenne_reussite )
+            return render_template('prof.html', prof=prof, courses=cours, moyenne_reussite=moyenne_reussite)
 
     return render_template('prof-login.html')
 
