@@ -159,7 +159,7 @@ def prof():
         if len(prof) == 1:
             prof = prof[0]
             cours = query_db("""
-                SELECT *, COUNT(questions.id) AS nbr_questions FROM cours
+                SELECT *, COUNT(questions.id) AS nbr_questions, cours.name AS name FROM cours
                 JOIN professeur_cours ON professeur_cours.professeur_id=?
                 JOIN partie_cours ON partie_cours.cours_id=cours.sigle
                 JOIN questions ON questions.partie_cours_id=partie_cours.id""", (prof['id'],))
@@ -170,21 +170,24 @@ def prof():
                     JOIN partie_cours ON questions.partie_cours_id = partie_cours.id
                     JOIN cours ON partie_cours.cours_id=cours.sigle
                     JOIN professeur_cours ON professeur_cours.professeur_id = ?
-                )""", [prof['id']])
+                )""", [prof['id']], True)
             taux_reussite_questions = query_db("""
-                    SELECT sigle, content, (success*100)/MAX(success + failures, 1) AS rapport
+                    SELECT sigle, content, (success*100)/MAX(success + failures, 1) AS rapport, (success + failures) AS nbr_answers
                     FROM questions
                     JOIN partie_cours ON questions.partie_cours_id = partie_cours.id
                     JOIN cours ON partie_cours.cours_id=cours.sigle
                     JOIN professeur_cours ON professeur_cours.professeur_id = ?
-                    ORDER BY rapport DESC""", [prof['id']])
+                    ORDER BY rapport DESC, nbr_answers DESC""", [prof['id']])
+
             taux_reussite_questions_cours = {cour["sigle"]:[] for cour in cours}
+
             for taux_reussite_question in taux_reussite_questions:
-                taux_reussite_questions_cours[taux_reussite_question["sigle"]].append([taux_reussite_question["content"], taux_reussite_question["rapport"]])
+                taux_reussite_questions_cours[taux_reussite_question["sigle"]].append([taux_reussite_question["content"], taux_reussite_question["rapport"], taux_reussite_question['nbr_answers']])
 
             return render_template('prof.html',
                 prof=prof, courses=cours, moyenne_reussite=moyenne_reussite,
-                taux_reussite_questions_cours=taux_reussite_questions_cours)
+                taux_reussite_questions_cours=taux_reussite_questions_cours
+            )
 
     return render_template('prof-login.html')
 
