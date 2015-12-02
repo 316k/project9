@@ -138,7 +138,6 @@ def stats():
             JOIN partie_cours ON partie_cours.cours_id=cours.sigle
             JOIN questions ON questions.partie_cours_id=partie_cours.id
             GROUP BY professeur.id""")),
-        #("", query_db()),
     ]
 
     return render_template('stats.html', stats=stats)
@@ -152,3 +151,19 @@ def good(question):
 def bad(question):
     query_db("UPDATE questions SET failures = failures + 1 WHERE id = ?", (question,))
     return jsonify(success=True)
+
+@app.route('/prof/', methods=['GET', 'POST'])
+def prof():
+    if 'nom' in request.form and 'pwd' in request.form and 'prenom' in request.form:
+        prof = query_db("SELECT * FROM professeurs WHERE nom=? AND mot_de_passe=? AND prenom=?", (request.form['nom'], request.form['pwd'], request.form['prenom']))
+        if len(prof) == 1:
+            prof = prof[0]
+            cours = query_db("""
+                SELECT *, COUNT(questions.id) AS nbr_questions FROM cours
+                JOIN professeur_cours ON professeur_cours.professeur_id=?
+                JOIN partie_cours ON partie_cours.cours_id=cours.sigle
+                JOIN questions ON questions.partie_cours_id=partie_cours.id""", (prof['id'],))
+            return render_template('prof.html', prof=prof, courses=cours)
+
+    return render_template('prof-login.html')
+
