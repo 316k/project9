@@ -45,7 +45,7 @@ CREATE TABLE reponses(
     texte TEXT,
     question_id INTEGER NOT NULL,
     vrai INTEGER NOT NULL,
-    FOREIGN KEY(question_id) REFERENCES question(id)
+    FOREIGN KEY(question_id) REFERENCES questions(id)
 );
 
 -- Une catégorie peut avoir des sous-catégories de façon récursive
@@ -53,7 +53,7 @@ CREATE TABLE categories(
     id INTEGER NOT NULL PRIMARY KEY,
     name TEXT,
     category_id INTEGER DEFAULT NULL,
-    FOREIGN KEY(category_id) REFERENCES categories(category_id)
+    FOREIGN KEY(category_id) REFERENCES categories(id)
 );
 
 CREATE TABLE question_categories(
