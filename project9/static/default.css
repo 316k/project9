@@ -14,3 +14,7 @@ body {
 #question_card {
     display: block;
 }
+
+abbr[title] {
+    border-bottom: none;
+}
