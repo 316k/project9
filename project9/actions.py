@@ -162,7 +162,8 @@ def prof():
                 JOIN professeur_cours ON professeur_cours.professeur_id=?
                 AND cours.sigle=professeur_cours.cours_id
                 JOIN partie_cours ON partie_cours.cours_id=cours.sigle
-                JOIN questions ON questions.partie_cours_id=partie_cours.id""", (prof['id'],))
+                JOIN questions ON questions.partie_cours_id=partie_cours.id
+                GROUP BY cours.sigle""", (prof['id'],))
 
             moyenne_reussite = query_db("""
                 SELECT ((SUM(success)*100)/NULLIF(SUM(success) + SUM(failures), 0)) AS average_reussite
@@ -191,11 +192,13 @@ def prof():
                 )
                 AND professeur.id != ?""", (prof['id'],prof['id']))
 
-            taux_reussite_questions_cours = {cour["sigle"]:[] for cour in cours}
-            print(taux_reussite_questions_cours)
 
+            taux_reussite_questions_cours = {}
             for taux_reussite_question in taux_reussite_questions:
                 sub_content = taux_reussite_question["content"] if len(taux_reussite_question["content"]) < 55 else taux_reussite_question["content"][0:55] + "..."
+                if taux_reussite_question["sigle"] not in taux_reussite_questions_cours:
+                    taux_reussite_questions_cours[taux_reussite_question["sigle"]] = []
+
                 taux_reussite_questions_cours[taux_reussite_question["sigle"]].append([
                     taux_reussite_question["content"], taux_reussite_question["rapport"],
                     sub_content, taux_reussite_question['nbr_answers']])

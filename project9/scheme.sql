@@ -97,7 +97,9 @@ INSERT INTO professeur_cours VALUES
     (1, 'IFT2935'),
     (4, 'IFT2935'),
     (5, 'IFT1235'),
-    (6, 'IFT1235');
+    (6, 'IFT1235'),
+    (4, 'IFT1235');
+
 
 INSERT INTO partie_cours VALUES
     (1, 'Première partie : Introduction', 'IFT2935'),

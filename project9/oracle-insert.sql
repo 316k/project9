@@ -29,6 +29,7 @@ INSERT INTO professeur_cours VALUES(1, 'IFT2935');
 INSERT INTO professeur_cours VALUES(4, 'IFT2935');
 INSERT INTO professeur_cours VALUES(5, 'IFT1235');
 INSERT INTO professeur_cours VALUES(6, 'IFT1235');
+INSERT INTO professeur_cours VALUES(4, 'IFT1235');
 
 INSERT INTO partie_cours VALUES(1, 'Première partie : Introduction', 'IFT2935');
 INSERT INTO partie_cours VALUES(2, 'Deuxième partie : Modèle Entité Relation', 'IFT2935');
