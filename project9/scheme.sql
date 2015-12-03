@@ -67,6 +67,8 @@ CREATE TABLE question_categories(
 -- Notes sur le schÈma :
 --  * les exercices reliÈs sont calculÈs ‡ partir des catÈgories associÈes aux questions
 --  * Il n'est pas nÈcessaire d'associer des sous-catÈgories ‡ un cours, puisqu'on peut retrouver le cours en trouvant rÈcursivement le parent (FIXME ?)
+-- Notes sur le sch√©ma :
+--  * les exercices reli√©s sont calcul√©s √† partir des cat√©gories associ√©es aux questions
 
 ---------------------
 -- Valeurs de test --
@@ -80,7 +82,12 @@ INSERT INTO categories VALUES
     (7, 'CaractÈristiques du code', 6),
     (8, 'CaractÈristiques des humains', 6),
     (9, 'Questionnement', NULL),
-    (10, 'QCM', 9);
+    (10, 'QCM', 9),
+    (15, 'Syntaxe', NULL),
+    (16, 'Expression Conditionelles', 15),
+    (17, 'Programmation Orient√©e Objet', NULL),
+    (18, 'M√©thodes', 17),
+    (19, 'Objets', 17);
 
 INSERT INTO professeurs VALUES
     (1, 'Claude', 'Frasson', 'ift2935'),
@@ -90,16 +97,23 @@ INSERT INTO professeurs VALUES
 
 INSERT INTO cours VALUES
     ('IFT2935', 'Bases de donnÈes');
+    ('IFT1235', 'Programmation');
 
 INSERT INTO professeur_cours VALUES
     (1, 'IFT2935'),
-    (4, 'IFT2935');
+    (4, 'IFT2935'),
+    (5, 'IFT1235'),
+    (6, 'IFT1235');
 
 INSERT INTO partie_cours VALUES
     (1, 'PremiËre partie : Introduction', 'IFT2935'),
     (2, 'DeuxiËme partie : ModËle EntitÈ Relation', 'IFT2935'),
     (3, 'TroisiËme partie : ModËle Relationnel', 'IFT2935'),
     (4, 'QuatriËme partie : L''algËbre et le calcul Relationnel', 'IFT2935');
+    (10, 'Partie 1 : Introduction', 'IFT1235'),
+    (11, 'Partie 2 : Structures de contr√¥le', 'IFT1235'),
+    (12, 'Partie 3 : Les proc√©dures', 'IFT1235'),
+    (13, 'Partie 4 : Programmation orient√©e objet', 'IFT1235');
 
 INSERT INTO questions(id, content, partie_cours_id) VALUES
     (1, 'Qu''est-ce qu''une base de donnÈes ?', 1),
@@ -124,6 +138,15 @@ INSERT INTO questions(id, content, partie_cours_id) VALUES
     (19, 'Pourquoi devons-nous comprendre l''algËbre relationnel avant d''apprendre le langage SQL?', 4),
     (20, 'Qu''elle est la diffÈrence entre une entitÈ et une relation?', 2)
     
+    (30, 'Laquelle de ces d√©finitions repr√©sente une variable ?', 10),
+    (31, 'Qu''es-ce qu''un interpr√©teur ?', 10),
+    (32, 'Que devrait-t-on mettre au d√©but d''un switch ?', 11),
+    (33, 'Quelle est la diff√©rence entre un while et un do while ?', 11),
+    (34, 'En python, quel mot cl√© permet de retourner une valeur d''une fonction ?', 12),
+    (35, 'En java, quel est le type d√©clar√© d''une fonction ne retournant rien ?', 12),
+    (36, 'Qu''es-ce qu''un objet ?', 13),
+    (37, 'Quel est le premier param√®tre de toute m√©thode d''un objet en python ?', 13);
+
 INSERT INTO reponses VALUES
     (NULL, 'Une sorte de champginon', 1, 0),
     (NULL, 'Une structure servant ‡ organiser des donnÈes', 1, 1),
@@ -135,16 +158,42 @@ INSERT INTO reponses VALUES
     (NULL, 'Un attribut en matÈriaux renforcÈs', 4, 0),
     (NULL, 'Unique', 5, 1),
     (NULL, 'Additif', 5, 0),
-    (NULL, ':D', 6, 0),
+    (NULL, 'Pi', 6, 0),
     (NULL, 'Sigma', 6, 1),
     (NULL, 'Elle sert ‡ joindre deux tables sur une condition', 7, 1),
     (NULL, 'On peut en parsemer sur la dinde ‡ NoÎl', 7, 0),
     (NULL, 'Vrai', 8, 0),
     (NULL, 'Faux', 8, 1),
     (NULL, 'Oui', 9, 1),
-    (NULL, 'Non', 9, 0);
+    (NULL, 'Non', 9, 0),
+    (NULL, 'Une variable est un param√®tre permettant de changer le flot d''ex√©cution d''un programme', 30, 0),
+    (NULL, 'Une variable est un emplacement m√©moire r√©serv√© dans lequel on peut storer des donn√©es', 30, 1),
+    (NULL, 'Un interpr√©teur est un programme permettant d''√©x√©cuter du code non compil√©', 31, 1),
+    (NULL, 'Un interpr√©teur permet de transf√©rer un programme sur un serveur distant', 31, 0),
+    (NULL, 'La variable que l''on veut tester', 32, 1),
+    (NULL, 'Le code qu''on veut ex√©cuter', 32, 0),
+    (NULL, 'Dans un do while, le code s''ex√©cute au moins une fois', 33, 1),
+    (NULL, 'Il n''y a aucune diff√©rence', 33, 0),
+    (NULL, 'Un do while est plus optimis√©',33, 0),
+    (NULL, 'give', 34, 0),
+    (NULL, 'return', 34, 1),
+    (NULL, 'end', 34, 0),
+    (NULL, 'null', 35, 0),
+    (NULL, 'void', 35, 1),
+    (NULL, 'nil', 35, 0),
+    (NULL, 'Une donn√©e complexe regroupant plusieurs types de donn√©es ainsi que des fonctions', 36, 1),
+    (NULL, 'Une repr√©sentation en m√©moire d''un √©l√©ment de base de donn√©e', 36, 0),
+    (NULL, 'self', 37, 0),
+    (NULL, 'l''objet lui-m√™me', 37, 1);
 
-INSERT INTO question_categories
+INSERT INTO question_categories VALUES
+    (32, 15),
+    (33, 16),
+    (34, 15),
+    (35, 15),
+    (36, 19),
+    (37, 18);
+INSERT INTO question_categories 
     SELECT id, 10 FROM questions;
 
 -- WITH RECURSIVE parent(category_id, nom, level) AS (SELECT category_id, name, 0 FROM categories WHERE id=? UNION ALL SELECT categories.category_id, categories.name, parent.level + 1 FROM categories JOIN parent ON parent.category_id=categories.id) SELECT * FROM parent

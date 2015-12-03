@@ -25,7 +25,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <h3>Collègues</h3>
+            <h3>Vos collègues</h3>
             <table class="ui celled table">
                 <thead>
                     <tr>
@@ -56,7 +56,7 @@
             {% for cours in courses %}
                 <h5>{{cours["sigle"]}} - {{cours["name"]}}</h5>
                 {% for taux_reussite_question in taux_reussite_questions_cours[cours["sigle"]] %}
-                    <div class="ui small progress" data-percent="{{taux_reussite_question[1]}}">
+                    <div class="ui small progress" data-percent="{{taux_reussite_question[1]}}" data-answers="{{taux_reussite_question[3]}}">
                         <div class="bar"></div>
                         <div class="label">
                             <abbr title="{{taux_reussite_question[0]}}">
@@ -83,6 +83,10 @@
                     val = 'green';
                 } else if($(this).data('percent') > 50) {
                     val = 'yellow';
+                }
+
+                if($(this).data('answers') == 0) {
+                    val = "";
                 }
 
                 $(this).addClass(val).progress();

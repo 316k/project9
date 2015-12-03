@@ -62,6 +62,7 @@ CREATE TABLE categories(
     PRIMARY KEY(id)
 );
 
+-- Associations entre catégories et questions
 CREATE TABLE question_categories(
     question_id number(10) NOT NULL,
     category_id number(10) NOT NULL,

@@ -66,7 +66,7 @@ def question(by, id=None):
     if by == "cours":
         questions = query_db("""
             SELECT * FROM questions
-            WHERE partie_cours_id = (
+            WHERE partie_cours_id IN (
                 SELECT id FROM partie_cours
                 WHERE cours_id=?
             )""", (id,))
@@ -164,14 +164,16 @@ def prof():
                 cours.sigle AS id, cours.sigle AS sigle
                 FROM cours
                 JOIN professeur_cours ON professeur_cours.professeur_id=?
+                AND cours.sigle=professeur_cours.cours_id
                 JOIN partie_cours ON partie_cours.cours_id=cours.sigle
                 JOIN questions ON questions.partie_cours_id=partie_cours.id""", (prof['id'],))
 
             moyenne_reussite = query_db("""
-                SELECT AVG(rapport) AS average_reussite FROM (
-                    SELECT (success*100)/MAX(success + failures, 1) AS rapport
+                SELECT (SUM(success)*100)/MAX(SUM(success) + SUM(failures), 1) AS average_reussite FROM (
+                    SELECT success, failures
                     FROM questions
                     JOIN partie_cours ON questions.partie_cours_id = partie_cours.id
+                    AND cours.sigle=professeur_cours.cours_id
                     JOIN cours ON partie_cours.cours_id=cours.sigle
                     JOIN professeur_cours ON professeur_cours.professeur_id = ?
                 )""", [prof['id']], True)
@@ -182,6 +184,7 @@ def prof():
                     JOIN partie_cours ON questions.partie_cours_id = partie_cours.id
                     JOIN cours ON partie_cours.cours_id=cours.sigle
                     JOIN professeur_cours ON professeur_cours.professeur_id = ?
+                    AND cours.sigle=professeur_cours.cours_id
                     ORDER BY rapport DESC, nbr_answers DESC""", [prof['id']])
 
             collegues = query_db("""
@@ -195,10 +198,13 @@ def prof():
                 AND professeur.id != ?""", (prof['id'],prof['id']))
 
             taux_reussite_questions_cours = {cour["sigle"]:[] for cour in cours}
+            print(taux_reussite_questions_cours)
 
             for taux_reussite_question in taux_reussite_questions:
                 sub_content = taux_reussite_question["content"] if len(taux_reussite_question["content"]) < 55 else taux_reussite_question["content"][0:55] + "..."
-                taux_reussite_questions_cours[taux_reussite_question["sigle"]].append([taux_reussite_question["content"], taux_reussite_question["rapport"], sub_content, taux_reussite_question['nbr_answers']])
+                taux_reussite_questions_cours[taux_reussite_question["sigle"]].append([
+                    taux_reussite_question["content"], taux_reussite_question["rapport"],
+                    sub_content, taux_reussite_question['nbr_answers']])
 
             return render_template('prof.html',
                 prof=prof, courses=cours, moyenne_reussite=moyenne_reussite,
