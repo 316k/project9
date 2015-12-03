@@ -174,19 +174,14 @@ INSERT INTO reponses VALUES
     (NULL, 'self', 37, 0),
     (NULL, 'l''objet lui-même', 37, 1);
 
-
-    (15, 'Syntaxe', NULL),
-    (16, 'Expression Conditionelles', 15),
-    (17, 'Programmation Orientée Objet', NULL),
-    (18, 'Méthodes', 17),
-    (19, 'Objets', 17);
-INSERT INTO question_categories
+INSERT INTO question_categories VALUES
     (32, 15),
     (33, 16),
     (34, 15),
     (35, 15),
     (36, 19),
-    (37, 18),
+    (37, 18);
+INSERT INTO question_categories 
     SELECT id, 10 FROM questions;
 
 -- WITH RECURSIVE parent(category_id, nom, level) AS (SELECT category_id, name, 0 FROM categories WHERE id=? UNION ALL SELECT categories.category_id, categories.name, parent.level + 1 FROM categories JOIN parent ON parent.category_id=categories.id) SELECT * FROM parent
