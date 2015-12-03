@@ -134,17 +134,17 @@ INSERT INTO questions(id, content, partie_cours_id) VALUES
     (15, 'Qu''elle est l''utilité de l''implantation de la thêta jointure dans une base de donnée?', 4),
     (16, 'Qu''est-ce qu''un attribut clé étrangère?', 2),
     (17, 'Combien d''attributs clés peut contenir une table relationnelle?', 2),
-    (18, 'Comment se nomme l''opération servant à faire la jointure de deux tables selon un critère sous forme de booléen?', 4),
+    (18, 'Comment se nomme l''opération servant à faire la jointure de deux tables selon un critère quelconque sous forme de booléen?', 4),
     (19, 'Pourquoi devons-nous comprendre l''algèbre relationnel avant d''apprendre le langage SQL?', 4),
-    (20, 'Qu''elle est la différence entre une entité et une relation?', 2)
+    (20, 'Qu''elle est la différence entre une entité et une relation?', 2),
     
     (30, 'Laquelle de ces dÃ©finitions reprÃ©sente une variable ?', 10),
-    (31, 'Qu''es-ce qu''un interprÃ©teur ?', 10),
+    (31, 'Qu''est-ce qu''un interprÃ©teur ?', 10),
     (32, 'Que devrait-t-on mettre au dÃ©but d''un switch ?', 11),
     (33, 'Quelle est la diffÃ©rence entre un while et un do while ?', 11),
     (34, 'En python, quel mot clÃ© permet de retourner une valeur d''une fonction ?', 12),
     (35, 'En java, quel est le type dÃ©clarÃ© d''une fonction ne retournant rien ?', 12),
-    (36, 'Qu''es-ce qu''un objet ?', 13),
+    (36, 'Qu''est-ce qu''un objet ?', 13),
     (37, 'Quel est le premier paramÃ¨tre de toute mÃ©thode d''un objet en python ?', 13);
 
 INSERT INTO reponses VALUES
@@ -184,7 +184,29 @@ INSERT INTO reponses VALUES
     (NULL, 'Une donnÃ©e complexe regroupant plusieurs types de donnÃ©es ainsi que des fonctions', 36, 1),
     (NULL, 'Une reprÃ©sentation en mÃ©moire d''un Ã©lÃ©ment de base de donnÃ©e', 36, 0),
     (NULL, 'self', 37, 0),
-    (NULL, 'l''objet lui-mÃªme', 37, 1);
+    (NULL, 'l''objet lui-mÃªme', 37, 1),
+    (NULL, 'Tout', 10, 0),
+    (NULL, 'Les losanges seulement', 10, 1),
+    (NULL, 'Une union suivie d''une sélection', 11, 1),
+    (NULL, 'Une union suivie d''une projection', 11, 0),
+    (NULL, 'La perspective de l''entité', 12, 1),
+    (NULL, 'Les relations entre entités', 12, 0),
+    (NULL, 'Les possibilités de condition de sélection qui suit l''union', 13, 0),
+    (NULL, 'La condition de sélection qui suit l''union', 13, 1),
+    (NULL, 'Il y en a, la question n''a pas de sens.', 14, 0),
+    (NULL, 'Puisque chaque valeur identifie une relation différente.', 14, 1),
+    (NULL, 'L''opportunité de faire des jointures avec des conditions variées.', 15, 1),
+    (NULL, 'Impressionner le client.', 15, 0),
+    (NULL, 'Un attribut qui réfère à une autre table relationnelle.', 16, 1),
+    (NULL, 'Un attribut clé qui réfère à une autre table relationnelle.', 16, 0),
+    (NULL, '1 attribut clé seulement.', 17, 0),
+    (NULL, 'Autant que nécessaire.', 17, 1),
+    (NULL, 'La sesqui-jointure', 18, 0),
+    (NULL, 'La thêta jointure', 18, 1),
+    (NULL, 'Puisque l''algèbre relationnel aide à faire des requêtes complexes.', 19, 0),
+    (NULL, 'Puisque l''algèbre relationnel aide à rendre simple les notions complexes des requêtes SQL.', 19, 1),
+    (NULL, 'L''entité peut être perçue comme étant une relation, mais pas nécessairement l''inverse.', 20, 1),
+    (NULL, 'Une entité est concrète alors qu''une relation est abstraite et les deux sont distinctes.', 20, 0);
 
 INSERT INTO question_categories VALUES
     (32, 15),
