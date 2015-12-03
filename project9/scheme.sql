@@ -145,7 +145,7 @@ INSERT INTO reponses VALUES
     (NULL, 'Un attribut en matériaux renforcés', 4, 0),
     (NULL, 'Unique', 5, 1),
     (NULL, 'Additif', 5, 0),
-    (NULL, ':D', 6, 0),
+    (NULL, 'Pi', 6, 0),
     (NULL, 'Sigma', 6, 1),
     (NULL, 'Elle sert à joindre deux tables sur une condition', 7, 1),
     (NULL, 'On peut en parsemer sur la dinde à Noël', 7, 0),
