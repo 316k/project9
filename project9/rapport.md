@@ -41,6 +41,6 @@ qui contient cette catégorie (category_id).
 
 
 ### Conclusion.
-Nous avons implantÃ©s plusieurs fonctionnalitÃ©s que nous trouvions pertinentes pour un projet de la sorte tel que la classification de questions par parties de cours ou par catÃ©gories ainsi que des statistiques plus avancÃ©es. Bien entendu, le systÃ¨me de base de donnÃ©e est essentiel au fonctionnement d'un tel projet. Pour l'implantation logiciel du projet nous nous sommes tournÃ©s vers une application web utilisant le framework flask en python ainsi que le systÃ¨me de base de donnÃ©e SQLite que nous avons choisis pour sa lÃ©gÃ¨retÃ© et sa simplicitÃ©.
+Durant ce projet, nous avons découvert la facilité avec laquelle python peut permettre de développer des applications webs mais nous avons surtout pu constater le défi que représente la gestion d'une base de donnée dans une application non triviale. En effet, dans de tels entreprises, la base de donnée joue un rôle centrale tant dans la conservation des données que dans l'accès à celles-ci. 
 
-
+Nous avons choisis d'utiliser SQLite pour ce projet puisque la légéreté et la facilité d'installation de ce système nous a rendu la tâche considérablement plus facile et rapide. Les différences syntaxiques entre le SQL accepté par les systèmes Oracles et celui accepté par SQLite ne nous ont pas posés de problèmes majeurs puisque l'apprentissage de l'algèbre relationelle nous a pourvu un cadre théorique solide et invariant sur lequel nous pouvons nous baser dans toutes situations. Notre projet est ainsi complet et pratiquement utilisable mais certaines fonctionnalités telles que l'ajout de questions à la base pourraient être intéressantes à considérer.
