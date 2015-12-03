@@ -67,8 +67,8 @@ CREATE TABLE question_categories(
 -- Notes sur le schéma :
 --  * les exercices reliés sont calculés à partir des catégories associées aux questions
 --  * Il n'est pas nécessaire d'associer des sous-catégories à un cours, puisqu'on peut retrouver le cours en trouvant récursivement le parent (FIXME ?)
--- Notes sur le schÃ©ma :
---  * les exercices reliÃ©s sont calculÃ©s Ã  partir des catÃ©gories associÃ©es aux questions
+-- Notes sur le schéma :
+--  * les exercices reliés sont calculés À  partir des catégories associées aux questions
 
 ---------------------
 -- Valeurs de test --
@@ -82,18 +82,18 @@ INSERT INTO categories VALUES
     (10, 'QCM', 9),
     (15, 'Syntaxe', NULL),
     (16, 'Expression Conditionelles', 15),
-    (17, 'Programmation OrientÃ©e Objet', NULL),
-    (18, 'MÃ©thodes', 17),
+    (17, 'Programmation Orientée Objet', NULL),
+    (18, 'Méthodes', 17),
     (19, 'Objets', 17);
 
 INSERT INTO professeurs VALUES
     (1, 'Claude', 'Frasson', 'ift2935'),
-    (2, 'Jackie', 'LaTruite', 'mot-de-passe'),
-    (3, 'Erick', 'Gamma', 'connect-four'),
+    (5, 'Denis', 'Bluteau', 'ift1235'),
+    (6, 'Anna', 'Francoeur', 'ift1235'),
     (4, 'Esma', 'Aïmeur', 'ift2935');
 
 INSERT INTO cours VALUES
-    ('IFT2935', 'Bases de données');
+    ('IFT2935', 'Bases de données'),
     ('IFT1235', 'Programmation');
 
 INSERT INTO professeur_cours VALUES
@@ -106,11 +106,11 @@ INSERT INTO partie_cours VALUES
     (1, 'Première partie : Introduction', 'IFT2935'),
     (2, 'Deuxième partie : Modèle Entité Relation', 'IFT2935'),
     (3, 'Troisième partie : Modèle Relationnel', 'IFT2935'),
-    (4, 'Quatrième partie : L''algèbre et le calcul Relationnel', 'IFT2935');
+    (4, 'Quatrième partie : L''algèbre et le calcul Relationnel', 'IFT2935'),
     (10, 'Partie 1 : Introduction', 'IFT1235'),
     (11, 'Partie 2 : Structures de contrÃ´le', 'IFT1235'),
-    (12, 'Partie 3 : Les procÃ©dures', 'IFT1235'),
-    (13, 'Partie 4 : Programmation orientÃ©e objet', 'IFT1235');
+    (12, 'Partie 3 : Les procédures', 'IFT1235'),
+    (13, 'Partie 4 : Programmation orientée objet', 'IFT1235');
 
 INSERT INTO questions(id, content, partie_cours_id) VALUES
     (1, 'Qu''est-ce qu''une base de données ?', 1),
@@ -121,7 +121,7 @@ INSERT INTO questions(id, content, partie_cours_id) VALUES
     (6, 'Quel est le symbol pour l''opération de SÉLECTION ?', 3),
     (7, 'Quel est l''utilité de la thêta jointure ?', 4),
     (8, 'Existe-t-il un opérateur nommé sesqui-jointure ?', 4),
-    (9, 'La 2-forme normale consiste à n''avoir aucun attribut non clé dépendant d''une partie de la clé', 1);
+    (9, 'La 2-forme normale consiste à n''avoir aucun attribut non clé dépendant d''une partie de la clé', 1),
 
     (10, 'Qu''est-ce qui est une relation dans un modèle E-R?', 2),
     (11, 'Qu''est-ce qu''une jointure?', 4),
@@ -130,19 +130,19 @@ INSERT INTO questions(id, content, partie_cours_id) VALUES
     (14, 'Pourquoi n''y a-t-il pas d''attributs multivalués dans un modèle relationnel?', 3),
     (15, 'Qu''elle est l''utilité de l''implantation de la thêta jointure dans une base de donnée?', 4),
     (16, 'Qu''est-ce qu''un attribut clé étrangère?', 2),
-    (17, 'Combien d''attributs clés peut contenir une table relationnelle?', 2),
+    (17, 'Combien d''attributs peuvent être clés d''une table relationnelle?', 2),
     (18, 'Comment se nomme l''opération servant à faire la jointure de deux tables selon un critère quelconque sous forme de booléen?', 4),
     (19, 'Pourquoi devons-nous comprendre l''algèbre relationnel avant d''apprendre le langage SQL?', 4),
     (20, 'Qu''elle est la différence entre une entité et une relation?', 2),
-    
-    (30, 'Laquelle de ces dÃ©finitions reprÃ©sente une variable ?', 10),
-    (31, 'Qu''est-ce qu''un interprÃ©teur ?', 10),
-    (32, 'Que devrait-t-on mettre au dÃ©but d''un switch ?', 11),
-    (33, 'Quelle est la diffÃ©rence entre un while et un do while ?', 11),
-    (34, 'En python, quel mot clÃ© permet de retourner une valeur d''une fonction ?', 12),
-    (35, 'En java, quel est le type dÃ©clarÃ© d''une fonction ne retournant rien ?', 12),
+
+    (30, 'Laquelle de ces définitions représente une variable ?', 10),
+    (31, 'Qu''est-ce qu''un interpréteur ?', 10),
+    (32, 'Que devrait-t-on mettre au début d''un switch ?', 11),
+    (33, 'Quelle est la différence entre un while et un do while ?', 11),
+    (34, 'En python, quel mot clé permet de retourner une valeur d''une fonction ?', 12),
+    (35, 'En java, quel est le type déclaré d''une fonction ne retournant rien ?', 12),
     (36, 'Qu''est-ce qu''un objet ?', 13),
-    (37, 'Quel est le premier paramÃ¨tre de toute mÃ©thode d''un objet en python ?', 13);
+    (37, 'Quel est le premier paramètre de toute méthode d''un objet en python ?', 13);
 
 INSERT INTO reponses VALUES
     (NULL, 'Un ordinateur distant contenant un programme', 1, 0),
@@ -163,25 +163,25 @@ INSERT INTO reponses VALUES
     (NULL, 'Faux', 8, 1),
     (NULL, 'Vrai', 9, 1),
     (NULL, 'Faux', 9, 0),
-    (NULL, 'Une variable est un paramÃ¨tre permettant de changer le flot d''exÃ©cution d''un programme', 30, 0),
-    (NULL, 'Une variable est un emplacement mÃ©moire rÃ©servÃ© dans lequel on peut storer des donnÃ©es', 30, 1),
-    (NULL, 'Un interprÃ©teur est un programme permettant d''Ã©xÃ©cuter du code non compilÃ©', 31, 1),
-    (NULL, 'Un interprÃ©teur permet de transfÃ©rer un programme sur un serveur distant', 31, 0),
+    (NULL, 'Une variable est un paramètre permettant de changer le flot d''exécution d''un programme', 30, 0),
+    (NULL, 'Une variable est un emplacement mémoire réservé dans lequel on peut storer des données', 30, 1),
+    (NULL, 'Un interpréteur est un programme permettant d''éxécuter du code non compilé', 31, 1),
+    (NULL, 'Un interpréteur permet de transférer un programme sur un serveur distant', 31, 0),
     (NULL, 'La variable que l''on veut tester', 32, 1),
-    (NULL, 'Le code qu''on veut exÃ©cuter', 32, 0),
-    (NULL, 'Dans un do while, le code s''exÃ©cute au moins une fois', 33, 1),
-    (NULL, 'Il n''y a aucune diffÃ©rence', 33, 0),
-    (NULL, 'Un do while est plus optimisÃ©',33, 0),
+    (NULL, 'Le code qu''on veut exécuter', 32, 0),
+    (NULL, 'Dans un do while, le code s''exécute au moins une fois', 33, 1),
+    (NULL, 'Il n''y a aucune différence', 33, 0),
+    (NULL, 'Un do while est plus optimisé',33, 0),
     (NULL, 'give', 34, 0),
     (NULL, 'return', 34, 1),
     (NULL, 'end', 34, 0),
     (NULL, 'null', 35, 0),
     (NULL, 'void', 35, 1),
     (NULL, 'nil', 35, 0),
-    (NULL, 'Une donnÃ©e complexe regroupant plusieurs types de donnÃ©es ainsi que des fonctions', 36, 1),
-    (NULL, 'Une reprÃ©sentation en mÃ©moire d''un Ã©lÃ©ment de base de donnÃ©e', 36, 0),
+    (NULL, 'Une donnée complexe regroupant plusieurs types de données ainsi que des fonctions', 36, 1),
+    (NULL, 'Une représentation en mémoire d''un élément de base de donnée', 36, 0),
     (NULL, 'self', 37, 0),
-    (NULL, 'l''objet lui-mÃªme', 37, 1),
+    (NULL, 'l''objet lui-même', 37, 1),
     (NULL, 'Tout', 10, 0),
     (NULL, 'Les losanges seulement', 10, 1),
     (NULL, 'Une union suivie d''une sélection', 11, 1),
@@ -206,6 +206,30 @@ INSERT INTO reponses VALUES
     (NULL, 'Une entité est concrète alors qu''une relation est abstraite et les deux sont distinctes.', 20, 0);
 
 INSERT INTO question_categories VALUES
+    (9, 2),
+    (3, 4),
+    (10, 4),
+    (20, 4),
+    (3, 5),
+    (4, 5),
+    (5, 5),
+    (12, 5),
+    (14, 5),
+    (15, 5),
+    (16, 5),
+    (17, 5),
+    (6, 6),
+    (7, 6),
+    (8, 6),
+    (11, 6),
+    (12, 6),
+    (13, 6),
+    (18, 6),
+    (19, 6),
+    (1, 11),
+    (2, 11),
+    (15, 11),
+    (16, 11),
     (32, 15),
     (33, 16),
     (34, 15),
