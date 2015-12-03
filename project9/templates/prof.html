@@ -47,9 +47,9 @@
         </div>
         <div class="ui column">
             <h3>Mes questions</h3>
-            <div id="rate" class="ui large progress" data-percent="{{moyenne_reussite['average_reussite'] | round(2) }}">
+            <div id="rate" class="ui large progress" data-percent="{{(moyenne_reussite['average_reussite'] or 100) | round(2) }}">
                 <div class="bar"></div>
-                <div class="label">Taux de réussite moyen des questions: {{moyenne_reussite["average_reussite"] | round(2) }} %</div>
+                <div class="label">Taux de réussite moyen des questions: {{(moyenne_reussite["average_reussite"] or 100) | round(2) }} %</div>
             </div>
             <br />
             <h4>Taux de réussite par question</h4>
