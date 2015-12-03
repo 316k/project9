@@ -83,16 +83,12 @@ def question(by, id=None):
               JOIN children_categories ON children_categories.id=categories.category_id
               ORDER BY children_categories.level + 1 DESC
             ) SELECT * FROM children_categories UNION SELECT id, name, 0 FROM categories WHERE id = ?""", (id,id))
-        print([str(x['id']) for x in categories])
         questions = query_db("""
             SELECT * FROM questions AS question
             JOIN question_categories
             ON question_categories.question_id=question.id AND question_categories.category_id IN (""" + ', '.join([str(x['id']) for x in categories]) + ')')
-        print(len(questions))
     elif by == "questions":
         questions = query_db("SELECT * FROM questions WHERE id=?", (id,))
-    elif by == "global":
-        questions = query_db("SELECT * FROM questions")
 
     categories = query_db("""
         WITH RECURSIVE parent_categories(category_id, name, level) AS (
@@ -169,14 +165,12 @@ def prof():
                 JOIN questions ON questions.partie_cours_id=partie_cours.id""", (prof['id'],))
 
             moyenne_reussite = query_db("""
-                SELECT (SUM(success)*100)/MAX(SUM(success) + SUM(failures), 1) AS average_reussite FROM (
-                    SELECT success, failures
-                    FROM questions
-                    JOIN partie_cours ON questions.partie_cours_id = partie_cours.id
-                    AND cours.sigle=professeur_cours.cours_id
-                    JOIN cours ON partie_cours.cours_id=cours.sigle
-                    JOIN professeur_cours ON professeur_cours.professeur_id = ?
-                )""", [prof['id']], True)
+                SELECT ((SUM(success)*100)/NULLIF(SUM(success) + SUM(failures), 0)) AS average_reussite
+                FROM questions
+                JOIN professeur_cours ON professeur_cours.professeur_id = ?
+                JOIN partie_cours ON questions.partie_cours_id = partie_cours.id
+                JOIN cours ON partie_cours.cours_id=cours.sigle
+                WHERE cours.sigle=professeur_cours.cours_id""", [prof['id']], True)
 
             taux_reussite_questions = query_db("""
                     SELECT sigle, content, (success*100)/MAX(success + failures, 1) AS rapport, (success + failures) AS nbr_answers
