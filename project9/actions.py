@@ -66,7 +66,7 @@ def question(by, id=None):
     if by == "cours":
         questions = query_db("""
             SELECT * FROM questions
-            WHERE partie_cours_id = (
+            WHERE partie_cours_id IN (
                 SELECT id FROM partie_cours
                 WHERE cours_id=?
             )""", (id,))
