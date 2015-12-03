@@ -116,20 +116,63 @@ L'application est divisée en sections suivant les fonctionnalités suivantes :
 
 1. Réponse à des questions aléatoires (qui peuvent être tirées au sort parmi les catégories, les cours, les parties de cours, etc.)
 2. Recherche de questions et de concepts dans la base de données
-3. Visualisation de statistiques propres à plate-forme
+3. Visualisation de statistiques générales
 4. Visualisation de statistiques propres à chaque cours (page protégée en accès, restreinte aux professeurs concernés)
 
 ### 1. Réponse à des questions aléatoires
 
+La principale fonctionnalité de l'application est de permettre aux élèves de tirer au sort des questions relatives à des concepts vus en cours pour valider leur compréhension partielle ou totale. Les élèves peuvent donc choisir de répondre aléatoirement :
+
+1. À des questions relatives à une partie de cours
+2. À des questions tirées de l'intégrité d'un cours
+3. À des questions spécifiquement reliées à un des concept de la matière
+
+[Sélection d'un type de questions aléatoires : partie de cours, intégrité d'un cours ou catégories et concepts](q0.png)
+
+Lorsque le choix est fait, l'élève se voit présenté une question et des choix de réponse. Il peut alors sélectionner le choix qui lui semble juste et confirmer sa réponse. L'application affiche alors si la question a été réussie (en vert) ou échouée (en rouge), note le score dans le navigateur web de l'élève pour futures références et permet de passer à une autre question dans le même thème.
+
+![Affichage d'une question aléatoire](q1.png)
+
+![Lorsque la réponse est sélectionnée, l'application confirme s'il s'agit de la bonne réponse](q2.png)
+
 ### 2. Recherche de questions et de concepts dans la base de données
 
-### 3. Visualisation de statistiques propres à la plate-forme
+En plus de choisir des concepts via une liste de cours et de catégories, il semblait intéressant d'ajouter la possibilité de rechercher dans la base de données en vue de trouver plus facilement des sujets spécifiques.
+
+![Recherche d'un sujet dans la base de données](r1.png)
+
+On peut donc rechercher un ou plusieurs termes parmi les énoncés de questions, les catégories, les cours et les parties de cours. L'option de rafiner la recherche selon les mots-clés permet de rechercher parmi les éléments contenant *l'un des mots-clés entrés* (via un `OR` SQL), ou encore parmi les éléments contenant *tous les mots-clés entrés* (via un `AND` SQL).
+
+![Il est possible de faire une recherche plus précise en demandant à utiliser tous les termes de recherche](r2.png)
+
+### 3. Visualisation de statistiques générales
+
+La section *Stats*, accessible depuis le menu du haut, permet de donner une vue d'ensemble de la base de données, nottement en ce qui a trait aux cours et aux professeurs utilisant le système, ainsi qu'à des statistiques personnalisées.
+
+Grâce à cette section, les élèves pourront visualiser leur taux de succès et adapter leurs efforts en conséquent.
+
+![Les statistiques affichées permettent d'avoir une idée d'ensemble de la réussite ainsi que de l'état du site](s1.png)
 
 ### 4. Visualisation de statistiques propres à chaque cours
 
+La section *Professeurs* permet de visualiser des statistiques propres à chaque cours et est réservée aux professeurs authentifiés.
+
+Les professeurs souhaitant avoir une idée de l'état de l'apprentissage de leurs élèves devront donc se logguer dans le système en indiquant leur Prénom, Nom et Mot de passe secret.
+
+![Page de login pour les professeurs](p1.png)
+
+Une fois authentifiés, les professeurs verront dans l'ordre :
+
+1. Le taux de réussite global pour toutes leurs questions
+2. Le taux de réussite pour chacune de leurs questions
+
+Les questions sont ordonnées par cours ainsi que par taux de réussite. Il est ainsi facile de cibler rapidement quels concepts sont bien assimilés et quels concepts donnent du fils à retordre aux élèves.
+
+![Page de statistiques réservée aux professeurs](p2.png)
+
 ## Données utilisées
 
-Les données réalistes utilisées pour des fins de test sont insérées de la façon suivante :
+Les données réalistes utilisées pour des fins de test sont insérées dans la base de données de la façon suivante :
 
 ```
 
@@ -144,6 +187,6 @@ Les données réalistes utilisées pour des fins de test sont insérées de la f
 
 Durant ce projet, nous avons découvert la facilité avec laquelle python peut permettre de développer des applications webs mais nous avons surtout pu constater le défi que représente la gestion d'une base de donnée dans une application non triviale. En effet, dans de tels entreprises, la base de donnée joue un rôle central tant dans la conservation des données que dans l'accès à celles-ci.
 
-Nous avons choisis d'utiliser SQLite pour ce projet puisque la légéreté et la facilité d'installation de ce système nous a rendu la tâche considérablement plus facile et rapide. Les différences syntaxiques entre le SQL accepté par les systèmes Oracles et celui accepté par SQLite ne nous ont pas posés de problèmes majeurs puisque l'apprentissage de l'algèbre relationelle nous a pourvu un cadre théorique solide et invariant sur lequel nous pouvons nous baser dans toutes situations.
+Nous avons choisis d'utiliser SQLite pour ce projet puisque la légéreté et la facilité d'installation de ce système nous a rendu la tâche considérablement plus facile et rapide. Les différences syntaxiques entre le SQL accepté par les systèmes Oracle et celui accepté par SQLite ne nous ont pas posés de problèmes majeurs puisque l'apprentissage de l'algèbre relationelle nous a pourvu un cadre théorique solide et invariant sur lequel nous pouvons nous baser dans toutes situations.
 
 Notre projet est ainsi complet et serait utilisable par les professeurs souhaitant aider leurs élèves via un système web interactif. Il y a cependant toujours place à l'amélioration, certaines fonctionnalités telles qu'une interface en ligne pour ajouter des questions à la base pourraient être intéressantes à considérer.
