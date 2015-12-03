@@ -66,7 +66,6 @@ CREATE TABLE question_categories(
 
 -- Notes sur le schéma :
 --  * les exercices reliés sont calculés à partir des catégories associées aux questions
---  * Il n'est pas nécessaire d'associer des sous-catégories à un cours, puisqu'on peut retrouver le cours en trouvant récursivement le parent (FIXME ?)
 
 ---------------------
 -- Valeurs de test --
@@ -153,7 +152,6 @@ INSERT INTO reponses VALUES
     (NULL, 'Faux', 8, 1),
     (NULL, 'Oui', 9, 1),
     (NULL, 'Non', 9, 0),
-
     (NULL, 'Une variable est un paramètre permettant de changer le flot d''exécution d''un programme', 30, 0),
     (NULL, 'Une variable est un emplacement mémoire réservé dans lequel on peut storer des données', 30, 1),
     (NULL, 'Un interpréteur est un programme permettant d''éxécuter du code non compilé', 31, 1),
@@ -169,7 +167,7 @@ INSERT INTO reponses VALUES
     (NULL, 'null', 35, 0),
     (NULL, 'void', 35, 1),
     (NULL, 'nil', 35, 0),
-    (NULL, 'Une donnée complex regroupant plusieurs types de données ainsi que des fonctions', 36, 1),
+    (NULL, 'Une donnée complexe regroupant plusieurs types de données ainsi que des fonctions', 36, 1),
     (NULL, 'Une représentation en mémoire d''un élément de base de donnée', 36, 0),
     (NULL, 'self', 37, 0),
     (NULL, 'l''objet lui-même', 37, 1);
